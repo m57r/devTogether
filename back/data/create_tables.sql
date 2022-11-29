@@ -1,8 +1,8 @@
 BEGIN; 
 
 DROP TABLE IF EXISTS 
-"user", "language", "role", "message", "technology", "category", "project", "kanban", "list", "card", "tag", "recommendation", 
-"category_has_technology", "master", "follow", "speak", "assigned", "favorite", "take_stand", "work_on", "use", "card_has_tag"; 
+"user", "language","role", "message", "technology", "category", "project", "list", "card", "tag", "recommendation", "conversation",
+"master", "follow", "speak", "assigned", "favorite", "take_stand", "work_on", "use", "card_has_tag", "compose"; 
 
 /* Table user */
 CREATE TABLE IF NOT EXISTS "user"(
@@ -36,19 +36,20 @@ CREATE TABLE IF NOT EXISTS "role"(
     "updated_at" TIMESTAMPTZ
 ); 
 
+/* Table category */
+CREATE TABLE IF NOT EXISTS "category"(
+    "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    "name" TEXT NOT NULL, 
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(), 
+    "updated_at" TIMESTAMPTZ
+); 
+
 /* Table technology */
 CREATE TABLE IF NOT EXISTS "technology"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "name" TEXT NOT NULL, 
     "color" TEXT NOT NULL, 
-    "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(), 
-    "updated_at" TIMESTAMPTZ
-); 
-
-/* Table category */
-CREATE TABLE IF NOT EXISTS "category"(
-    "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "name" TEXT NOT NULL, 
+    "category_id" INT NOT NULL REFERENCES "category"("id") ON DELETE CASCADE, --when we delete category, we delete all the associated technology
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(), 
     "updated_at" TIMESTAMPTZ
 ); 
@@ -66,27 +67,29 @@ CREATE TABLE IF NOT EXISTS "project"(
     "updated_at" TIMESTAMPTZ
 ); 
 
+/* Table conversation */
+CREATE TABLE IF NOT EXISTS "conversation" (
+	"id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	"title" TEXT NOT NULL DEFAULT 'chat',
+	"created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+	"updated_at" TIMESTAMPTZ
+);
+
 /* Table message : create after project because message has "project" foreign key inside */
 CREATE TABLE IF NOT EXISTS "message"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, 
+    "content" TEXT NOT NULL, 
+    "read" BOOLEAN NOT NULL DEFAULT 'false',
     "user_id" INT NOT NULL REFERENCES "user"("id"), 
-    "project_id" INT NOT NULL REFERENCES "project"("id"),
-    "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(), 
-    "updated_at" TIMESTAMPTZ
-); 
-
-/* Table kanban */
-CREATE TABLE IF NOT EXISTS "kanban"(
-    "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, 
-    "project_id" INT NOT NULL REFERENCES "project"("id")  ON DELETE CASCADE,  --when we delete project, we delete the kanban project
+    "conversation_id" INT NOT NULL REFERENCES "project"("id") ON DELETE CASCADE, --when we delete conversation, we delete all the associated message
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(), 
     "updated_at" TIMESTAMPTZ
 ); 
 
 /* Table list */
 CREATE TABLE IF NOT EXISTS "list" (
-	"id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "kanban_id" INT NOT NULL REFERENCES "kanban"("id") ON DELETE CASCADE, --when we delete kanban, we delete all the associated list
+	"id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY ,
+    "project_id" INT NOT NULL REFERENCES "project"("id") ON DELETE CASCADE, --when we delete project, we delete all the associated list
 	"name" TEXT NOT NULL UNIQUE,
 	"position" INT NOT NULL DEFAULT 0,
 	"created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -113,6 +116,7 @@ CREATE TABLE IF NOT EXISTS "tag" (
 	"updated_at" TIMESTAMPTZ
 );
 
+
 /* ASSOCIATIONS TABLE */
 
 /* Table recommendation */
@@ -123,14 +127,6 @@ CREATE TABLE IF NOT EXISTS "recommendation"(
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(), 
     "updated_at" TIMESTAMPTZ,
     PRIMARY KEY ("user_id", "recommended_user_id") -- On associe les deux champs id en tant que clé primaire
-);
-
-/* Table category_has_technology */
-CREATE TABLE IF NOT EXISTS "category_has_technology"(
-   "technology_id" INT NOT NULL REFERENCES "technology"("id") ON DELETE CASCADE, 
-    "category_id" INT NOT NULL REFERENCES "category"("id") ON DELETE CASCADE, 
-    "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(), 
-    PRIMARY KEY ("technology_id", "category_id")
 );
 
 /* Table master */
@@ -205,6 +201,14 @@ CREATE TABLE IF NOT EXISTS "card_has_tag"(
     "tag_id" INT NOT NULL REFERENCES "tag"("id") ON DELETE CASCADE, 
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(), 
     PRIMARY KEY ("card_id", "tag_id")
+);
+
+/* compose */
+CREATE TABLE IF NOT EXISTS "compose"(
+    "user_id" INT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE, 
+    "conversation_id" INT NOT NULL REFERENCES "conversation"("id") ON DELETE CASCADE, 
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(), 
+    PRIMARY KEY ("user_id", "conversation_id")
 );
 
 COMMIT; 
