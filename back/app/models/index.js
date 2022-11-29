@@ -25,7 +25,7 @@ Technology.belongsTo(Category, {
 
 //Association between user and message - one to many
 Message.belongsTo(User, {
-	as : 'user', 
+	as : 'sender', 
 	foreignKey: 'message_id'
 }); 
 
@@ -41,18 +41,18 @@ Message.belongsTo(Conversation, {
 }); 
 
 Conversation.hasMany(Message, {
-	as : 'messages', 
+	as : 'messages_conversation', 
 	foreignKey: 'conversation_id'
 }); 
 
 //Association between project and user (propose project) - one to many
 User.hasMany(Project, {
-	as: 'projects', 
+	as: 'projects_proposed', 
 	foreignKey: 'user_id'
 }); 
 
-Project.belongTo(User, {
-	as: 'user', 
+Project.belongsTo(User, {
+	as: 'author', 
 	foreignKey: 'user_id'
 }); 
 
@@ -62,14 +62,14 @@ Project.hasMany(List, {
 	foreignKey: 'project_id'
 }); 
 
-List.belongTo(Project, {
+List.belongsTo(Project, {
 	as: 'project', 
 	foreignKey: 'project_id'
 }); 
 
 //Association between card and list - one to many
 List.hasMany(Card, {
-	as: 'cards',
+	as: 'cards_in_list',
 	foreignKey: 'list_id',
 });
 
@@ -88,7 +88,7 @@ Technology.belongsToMany(User, {
 });
 
 User.belongsToMany(Technology, {
-	as: 'technologies', 
+	as: 'user_technologies', 
 	through: 'master', 
 	foreignKey: 'user_id',
 	otherKey: 'technology_id',
@@ -97,7 +97,7 @@ User.belongsToMany(Technology, {
 
 // Association between language and user - many to many 
 Language.belongsToMany(User, {
-	as: 'users', 
+	as: 'speakers', 
 	through: 'speak', 
 	foreignKey: 'language_id',
 	otherKey: 'user_id', 
@@ -106,7 +106,7 @@ Language.belongsToMany(User, {
 
 User.belongsToMany(Language, {
 	as: 'languages', 
-	through: 'master', 
+	through: 'speak', 
 	foreignKey: 'user_id',
 	otherKey: 'language_id',
 	timestamps: false,
@@ -114,7 +114,7 @@ User.belongsToMany(Language, {
 
 // Association between card and user - many to many
 Card.belongsToMany(User, {
-	as: 'users', 
+	as: 'users_assigned', 
 	through: 'assigned', 
 	foreignKey: 'card_id',
 	otherKey: 'user_id', 
@@ -139,7 +139,7 @@ Project.belongsToMany(User, {
 });
 
 User.belongsToMany(Project, {
-	as: 'projects', 
+	as: 'favorite_projects', 
 	through: 'favorite', 
 	foreignKey: 'user_id',
 	otherKey: 'project_id',
@@ -148,7 +148,7 @@ User.belongsToMany(Project, {
 
 // Association between project and user ( take_stand )- many to many
 Project.belongsToMany(User, {
-	as: 'users', 
+	as: 'positioned_users', 
 	through: 'take_stand', 
 	foreignKey: 'project_id',
 	otherKey: 'user_id', 
@@ -156,7 +156,7 @@ Project.belongsToMany(User, {
 });
 
 User.belongsToMany(Project, {
-	as: 'projects', 
+	as: 'wanted_projects', 
 	through: 'take_stand', 
 	foreignKey: 'user_id',
 	otherKey: 'project_id',
@@ -165,7 +165,7 @@ User.belongsToMany(Project, {
 
 // Association between project and user ( work_on )- many to many
 Project.belongsToMany(User, {
-	as: 'users', 
+	as: 'team_users', 
 	through: 'work_on', 
 	foreignKey: 'project_id',
 	otherKey: 'user_id', 
@@ -173,7 +173,7 @@ Project.belongsToMany(User, {
 });
 
 User.belongsToMany(Project, {
-	as: 'projects', 
+	as: 'projects_working_on', 
 	through: 'work_on', 
 	foreignKey: 'user_id',
 	otherKey: 'project_id',
@@ -207,7 +207,7 @@ User.belongsToMany(Conversation, {
 });
 
 Conversation.belongsToMany(User, {
-	as: 'users', 
+	as: 'users_conversations', 
 	through: 'compose', 
 	foreignKey: 'conversation_id',
 	otherKey: 'user_id',
@@ -241,7 +241,7 @@ User.belongsToMany(User, {
 });
 
 User.belongsToMany(User, {
-	as: 'user', 
+	as: 'recommending_user', 
 	through: Recommendation,
 	foreignKey: 'recommended_user_id',
 	otherKey: 'user_id' 
@@ -256,7 +256,7 @@ User.belongsToMany(User, {
 });
 
 User.belongsToMany(User, {
-	as: 'user', 
+	as: 'follower_user', 
 	through: 'follow',
 	foreignKey: 'follower_id',
 	otherKey: 'user_id' 
