@@ -132,7 +132,7 @@ User.belongsToMany(Card, {
 
 // Association between project and user ( favorite ) - many to many
 Project.belongsToMany(User, {
-	as: 'users', 
+	as: 'likers', 
 	through: 'favorite', 
 	foreignKey: 'project_id',
 	otherKey: 'user_id', 
@@ -300,12 +300,12 @@ User.belongsToMany(User, {
 	timestamps: false,
 });
 
-module.exports = {
-	Technology, 
-	User, 
-	Language, 
+module.exports = { 
 	Card, 
-	Tag, 
+	Language,
 	Project, 
 	Role, 
+	Tag, 
+	Technology, 
+	User, 
 };

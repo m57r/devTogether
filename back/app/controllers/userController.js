@@ -10,6 +10,7 @@ const userController = {
 					{association: 'languages'},  
 				]
 			}); 
+
 			res.status(200).json(userList); 
 
 		} catch (error) {
@@ -25,7 +26,10 @@ const userController = {
 				include : [
 					{ association : 'projects_proposed'	},
 					{ association : 'favorite_projects' }, 
-					{ association : 'projects_working_on'},
+					{ 
+						association : 'projects_working_on', 
+						include : 'roles_on_projects'
+					},
 					{ association : 'wanted_projects'},
 					{ association : 'user_technologies' },
 					{ association : 'languages' }, 
@@ -40,6 +44,7 @@ const userController = {
 				const error = new Error(`User with id ${userId} not found`);
 				return  res.status(404).json({message : error.message}); 
 			}
+			
 			res.status(200).json(user); 
 
 		}catch(error){
@@ -48,7 +53,7 @@ const userController = {
 		}
 	}, 
 
-	
+
 
 };
 
