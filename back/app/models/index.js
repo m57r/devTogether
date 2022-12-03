@@ -6,6 +6,7 @@ const List = require('./list');
 const Message = require('./message');
 const Project = require('./project');
 const Recommendation = require('./recommendation');
+const Role = require('./role'); 
 const Tag = require('./tag');
 const Technology = require('./technology');
 const User = require('./user'); 
@@ -168,7 +169,7 @@ Project.belongsToMany(User, {
 	as: 'team_users', 
 	through: 'work_on', 
 	foreignKey: 'project_id',
-	otherKey: 'user_id', 
+	otherKey: 'user_id',
 	timestamps: false,
 });
 
@@ -179,6 +180,41 @@ User.belongsToMany(Project, {
 	otherKey: 'project_id',
 	timestamps: false,
 });
+
+//Association between user and role - many to many
+Role.belongsToMany(User, {
+	as: 'users', 
+	through: 'work_on', 
+	foreignKey: 'role_id',
+	otherKey: 'user_id',
+	timestamps: false,
+});
+
+User.belongsToMany(Role, {
+	as: 'user_roles', 
+	through: 'work_on', 
+	foreignKey: 'user_id',
+	otherKey: 'role_id',
+	timestamps: false,
+});
+
+//Association between project and role 
+Role.belongsToMany(Project, {
+	as: 'project_with_roles', 
+	through: 'work_on', 
+	foreignKey: 'role_id',
+	otherKey: 'user_id',
+	timestamps: false,
+}); 
+
+Project.belongsToMany(Role, {
+	as: 'roles_on_projects', 
+	through: 'work_on', 
+	foreignKey: 'project_id',
+	otherKey: 'role_id',
+	timestamps: false,
+});
+
 
 // Association between project and technology- many to many
 Project.belongsToMany(Technology, {
@@ -237,14 +273,14 @@ User.belongsToMany(User, {
 	as: 'recommended_user', 
 	through: Recommendation,
 	foreignKey: 'user_id',
-	otherKey: 'recommended_user_id' 
+	otherKey: 'recommended_user_id',
 });
 
 User.belongsToMany(User, {
 	as: 'recommending_user', 
 	through: Recommendation,
 	foreignKey: 'recommended_user_id',
-	otherKey: 'user_id' 
+	otherKey: 'user_id' ,
 });
 
 // Association involving the same models User (follow)- many to many
@@ -252,14 +288,16 @@ User.belongsToMany(User, {
 	as: 'followed_user', 
 	through: 'follow',
 	foreignKey: 'user_id',
-	otherKey: 'follower_id' 
+	otherKey: 'follower_id',
+	timestamps: false,
 });
 
 User.belongsToMany(User, {
 	as: 'follower_user', 
 	through: 'follow',
 	foreignKey: 'follower_id',
-	otherKey: 'user_id' 
+	otherKey: 'user_id' ,
+	timestamps: false,
 });
 
 module.exports = {
@@ -269,4 +307,5 @@ module.exports = {
 	Card, 
 	Tag, 
 	Project, 
+	Role, 
 };

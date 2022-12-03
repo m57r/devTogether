@@ -12,7 +12,7 @@ Recommendation.init({
 	}
 },{
 	sequelize, 
-	tableName: 'recommandation', 
+	tableName: 'recommendation', 
 	timestamps: false,
 });
 
