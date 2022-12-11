@@ -15,7 +15,8 @@ router.get('/projects/:projectId', projectController.getOneProjectById);
 router.post('/projects', projectController.createProject);
 router.patch('/projects/:projectId', projectController.updateProjectById);
 router.patch('/projects/:projectId/technologies', projectController.addTechnologiesOnProject); 
-router.patch('/projects/:projectId/workon', projectController.workOnProject);
+router.patch('/projects/:projectId/workon', projectController.acceptUserOnProject);
+router.delete('/projects/:projectId/workout', projectController.removeUserOnProject);
 router.patch('/projects/:projectId/takestand', projectController.takeStandOnProject);
 router.patch('/projects/:projectId/giverole', projectController.giveRoleToUser);
 

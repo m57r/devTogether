@@ -53,6 +53,7 @@ const projectController = {
 								}
 							}, 
 					},
+					{ association : 'positioned_users' }
 				]
 				
 			});
@@ -236,7 +237,7 @@ const projectController = {
    * @param { Number } projectManagerId- project manager's id
    * @param { Number } userId- project's id
    */
-	async workOnProject(req,res){
+	async acceptUserOnProject(req,res){
 		try {
 			
 			const userId= Number(req.body.userId);
@@ -434,7 +435,7 @@ const projectController = {
 	}, 
 
 	/** @function 
-   * Associate user on project ( takeStand table )
+   * Associate user on project ( takeStand table ) - user take stand on a project
    * @param { Number } projectId- project's id
    * @param { Number } userId- project's id
    */
@@ -480,6 +481,57 @@ const projectController = {
 			res.status(500).json({message : error.message}); 
 		}
 	}, 
+
+	// TO DO : RECUPERER L'USER DE L'ID DANS UN TOKEN : SEUL L'UTILISATEUR PEUT SE RETIRER D'UN PROJET
+	/** @function 
+   * remove user on project ( takeStand table ) - user withdraw from a project
+   * @param { Number } projectId- project's id
+   * @param { Number } userId- project's id
+   */
+	async withdrawFromProject(req,res){
+		try {
+			const userId= Number(req.body.userId);
+			const projectId = escape(Number(req.params.projectId)); 
+
+			if(!Number(userId)){
+				const error = new Error('"userId" property is missing');
+				return res.status(400).json({message: error.message}); 
+			}
+
+			if(!Number(projectId)){
+				const error = new Error('"projectId" property is missing');
+				return res.status(400).json({message: error.message}); 
+			}
+
+			let project = await Project.findByPk(projectId); 
+
+			if(!project){
+				const error = new Error(`Project with id ${projectId} not found`);
+				return  res.status(404).json({message : error.message}); 
+			}
+            
+			const user = await User.findByPk(userId); 
+			if (!user) {
+				const error = new Error(`User with id ${userId} does not exist.`);
+				return res.status(404).json({ message: error.message });
+			}
+
+			await project.removePositioned_users(user); 
+
+			project = await Project.findByPk(projectId, {
+				include : 'positioned_users'
+			});
+
+			res.status(201).json(project); 
+
+			
+		} catch (error) {
+			console.error(error); 
+			res.status(500).json({message : error.message}); 
+		}
+	}, 
+
+
 
 
 
