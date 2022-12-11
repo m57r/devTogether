@@ -10,6 +10,8 @@ const Role = require('./role');
 const Tag = require('./tag');
 const Technology = require('./technology');
 const User = require('./user'); 
+const UserRole = require('./user_has_role'); 
+const WorkOn = require('./work_on'); 
 
 
 //Association between technology and category - one to many
@@ -164,58 +166,6 @@ User.belongsToMany(Project, {
 	timestamps: false,
 });
 
-// Association between project and user ( work_on )- many to many
-Project.belongsToMany(User, {
-	as: 'team_users', 
-	through: 'work_on', 
-	foreignKey: 'project_id',
-	otherKey: 'user_id',
-	timestamps: false,
-});
-
-User.belongsToMany(Project, {
-	as: 'projects_working_on', 
-	through: 'work_on', 
-	foreignKey: 'user_id',
-	otherKey: 'project_id',
-	timestamps: false,
-});
-
-//Association between user and role - many to many
-Role.belongsToMany(User, {
-	as: 'users', 
-	through: 'work_on', 
-	foreignKey: 'role_id',
-	otherKey: 'user_id',
-	timestamps: false,
-});
-
-User.belongsToMany(Role, {
-	as: 'user_roles', 
-	through: 'work_on', 
-	foreignKey: 'user_id',
-	otherKey: 'role_id',
-	timestamps: false,
-});
-
-//Association between project and role 
-Role.belongsToMany(Project, {
-	as: 'project_with_roles', 
-	through: 'work_on', 
-	foreignKey: 'role_id',
-	otherKey: 'user_id',
-	timestamps: false,
-}); 
-
-Project.belongsToMany(Role, {
-	as: 'roles_on_projects', 
-	through: 'work_on', 
-	foreignKey: 'project_id',
-	otherKey: 'role_id',
-	timestamps: false,
-});
-
-
 // Association between project and technology- many to many
 Project.belongsToMany(Technology, {
 	as: 'technologies', 
@@ -300,12 +250,94 @@ User.belongsToMany(User, {
 	timestamps: false,
 });
 
+//association between Project and User (workon) - many to many 
+User.belongsToMany(Project, {
+	as: 'projects_working_on', 
+	through: WorkOn, 
+	foreignKey: 'user_id',
+	timestamps: false,
+});
+
+Project.belongsToMany(User, {
+	as: 'team_users', 
+	through:  WorkOn,  
+	foreignKey: 'project_id',
+	timestamps: false,
+});
+
+// Association between User and WorkOn - one to many 
+WorkOn.belongsTo(User, {
+	as: 'users',
+	foreignKey: 'user_id'
+}); 
+
+User.hasMany(WorkOn, {
+	as: 'workon_user',
+	foreignKey: 'user_id'
+}); 
+
+// Association between Project and WorkOn - one to many 
+WorkOn.belongsTo(Project, {
+	as : 'projects', 
+	foreignKey: 'project_id'
+}); 
+
+Project.hasMany(WorkOn, {
+	as : 'workon_projects', 
+	foreignKey: 'project_id'
+}); 
+
+//association between WorkOn and Role  - many to many 
+Role.belongsToMany(WorkOn, {
+	as: 'role_workon', 
+	through: UserRole, 
+	foreignKey: 'role_id',
+	otherKey: 'work_on_id',
+	timestamps: false,
+});
+
+WorkOn.belongsToMany(Role, {
+	as: 'user_roles', 
+	through: UserRole, 
+	foreignKey: 'work_on_id',
+	otherKey: 'role_id',
+	timestamps: false,
+});
+
+// Association between UserRole and Role - one to many 
+UserRole.belongsTo(Role, {
+	as : 'roles', 
+	foreignKey: 'role_id'
+}); 
+
+Role.hasMany(UserRole,{
+	as : 'userRoles',
+	foreignKey: 'role_id'
+}); 
+
+// Association between UserRole and WorkOn - one to many 
+UserRole.belongsTo(WorkOn, {
+	as : 'user_roles_on_project', 
+	foreignKey: 'work_on_id'
+});
+WorkOn.hasMany(UserRole, {
+	as : 'users_roles', 
+	foreignKey : 'work_on_id'
+}); 
+
 module.exports = { 
 	Card, 
+	Category,
+	Conversation,
 	Language,
+	List, 
+	Message, 
 	Project, 
+	Recommendation,
 	Role, 
 	Tag, 
 	Technology, 
-	User, 
+	User,
+	UserRole, 
+	WorkOn,
 };

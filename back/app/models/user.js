@@ -24,6 +24,10 @@ User.init({
 		type : DataTypes.TEXT, 
 		allowNull: true
 	},
+	description : {
+		type : DataTypes.TEXT, 
+		allowNull: false
+	}, 
 	active : {
 		type : DataTypes.BOOLEAN, 
 		allowNull: false, 

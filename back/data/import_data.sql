@@ -54,15 +54,15 @@ INSERT INTO "tag"("name", "color") VALUES
 ('issue', 'FF9811'),
 ('urgent', 'D80027');
 
-INSERT INTO "user"("firstname", "lastname", "email", "password", "avatar", "speciality") VALUES
-('leslie', 'Alexander', 'leslie1@mail.com', '1234', 'leslie_alexander', 'fullstack'), 
-('wade', 'warren', 'wade1@mail.com', '123', 'wade_warren', 'front'), 
-('cody', 'fisher', 'cody1@mail.com', '12345', 'cody_fisher', 'back'), 
-('arlene', 'mccoy', 'arlen1@mail.com', '123456', 'arlene_mccoy', 'fullstack'), 
-('guy', 'hawkins', 'guy1@mail.com', '12456', 'guy_hawkins', 'back'), 
-('brooklyn', 'simmons', 'brooklyn1@mail.com', '124575', 'brooklyn_simmons', 'front'),
-('courtney', 'henry', 'henry1@mail.com', '12341235', 'henry_courtney', 'front'),  
-('kristin', 'watson', 'kristin1@mail.com', '12341554', 'kristin_watson', 'front'); 
+INSERT INTO "user"("firstname", "lastname", "email", "password", "avatar", "speciality", "description") VALUES
+('leslie', 'Alexander', 'leslie1@mail.com', '1234', 'leslie_alexander', 'fullstack', 'Autem autem sanguine nec lucratus septem quoque lucratus ut septem.'), 
+('wade', 'warren', 'wade1@mail.com', '123', 'wade_warren', 'front','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.'), 
+('cody', 'fisher', 'cody1@mail.com', '12345', 'cody_fisher', 'back','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.'), 
+('arlene', 'mccoy', 'arlen1@mail.com', '123456', 'arlene_mccoy', 'fullstack','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.'), 
+('guy', 'hawkins', 'guy1@mail.com', '12456', 'guy_hawkins', 'back','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.'), 
+('brooklyn', 'simmons', 'brooklyn1@mail.com', '124575', 'brooklyn_simmons', 'front','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.'),
+('courtney', 'henry', 'henry1@mail.com', '12341235', 'henry_courtney', 'front','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.'),  
+('kristin', 'watson', 'kristin1@mail.com', '12341554', 'kristin_watson', 'front','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.'); 
 
 INSERT INTO "project"("name", "description", "team_description", "repo_github", "user_id") VALUES
 ('Balder', 'Qui cum ulla quos cum deflecti Petobionem insidiarum praestitutum quos praestitutum oppidum fatorum omnes omnes suis imperio in suis ubi.', 
@@ -102,15 +102,27 @@ INSERT INTO "speak"("user_id", "language_id") VALUES
 (7,1),(7,2),(7,4),
 (8,1),(8,2),(8,3);
 
-INSERT INTO "work_on"("user_id","project_id","role_id") VALUES
-(1,8,1),(1,8,3),
-(2,1,1),(2,1,2),
-(3,3,1),(3,3,3),
-(4,6,1),(4,6,3),
-(5,5,1),(5,5,3),
-(6,7,1),(6,7,2),
-(7,2,1),(7,8,2),
-(8,4,1),(8,4,3);
+INSERT INTO "work_on"("user_id","project_id") VALUES
+(1,8),
+(1,1),
+(2,1),
+(3,3),
+(4,6),
+(5,5),
+(6,7),
+(7,2),
+(8,4);
+
+INSERT INTO "user_has_role"("work_on_id", "role_id") VALUES
+(1,1),(1,3),
+(2,2), (2,4),
+(3,1),(3,2),
+(4,1),(4,3),
+(5,1),(5,3),
+(6,1),(6,3),
+(7,1),(7,2),
+(8,1),(8,2),
+(9,1),(9,3);
 
 
 INSERT INTO "use"("project_id","technology_id") VALUES
