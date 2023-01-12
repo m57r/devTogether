@@ -1,0 +1,48 @@
+@use 'src/styles/vars'; 
+
+video{  
+    object-fit: cover;  
+    width: 100%;
+    height: 35vh; 
+}
+
+.video_container{
+    position: relative; // pour placer le titre au centre 
+    height: 100%; 
+}
+
+.video_title{ 
+    position: absolute; 
+    top: 40%; 
+    width: 100%; 
+    text-align: center;
+    text-transform: uppercase;
+    font-size: vars.$gutter*1.5;
+    font-weight: 800; 
+    color: vars.$light-color;
+    text-shadow: 1px 1px 2px #8b8a8a;
+
+    span{
+        color: vars.$primary-color;
+        text-decoration: underline; 
+        text-decoration-thickness: vars.$gutter*0.3;
+    }
+}
+
+@media screen and (min-width: 830px) {
+    video{
+        object-fit : cover; 
+        height : 50vh; 
+    }
+
+    .video_title{
+        font-size: vars.$gutter*2;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .video{
+        object-fit : cover; 
+        height : 60vh; 
+    }
+}

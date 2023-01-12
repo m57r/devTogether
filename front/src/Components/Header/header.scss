@@ -1,0 +1,75 @@
+@use 'src/styles/vars'; 
+
+.header{
+    display: flex; 
+    justify-content: space-between;
+    align-items: center; 
+    padding : vars.$gutter vars.$gutter*3; 
+    background-color: rgba(247,244,241,0.57); 
+    
+    &_logo{
+        font-size: vars.$gutter*1.56;
+        color: vars.$primary-color; 
+        & span{
+            font-weight:bold;
+        }
+    }
+        
+    &_icons{
+        color : vars.$primary-color; 
+    }   
+
+}
+
+.navLink--desktop{
+    display : none;
+}
+
+
+@media screen and (min-width: 700px) {
+
+    .header_icons{
+        display: none; 
+    }
+
+    .navLink--desktop{
+
+        display : flex;
+        align-items: baseline;
+
+        ul{
+            display : flex;
+            flex-direction : row; 
+
+            li{
+                color : vars.$primary-color; 
+                font-size: vars.$gutter*1.1; 
+                padding : 0 vars.$gutter; 
+            }
+        }
+
+        button{
+            border: none; 
+            padding: vars.$gutter*0.3 vars.$gutter*0.8;
+            border-radius: 10px; 
+    
+            background-color: vars.$purple-color;
+            color: vars.$light-color; 
+            font-size: vars.$gutter*1.1; 
+            font-weight: 700;
+        }
+        
+    }
+}
+
+
+@media screen and (min-width: 930px) {
+    .navLink--desktop ul{s
+        li{
+            font-size: vars.$gutter*1.2; 
+            padding : 0 vars.$gutter*1.5;
+        }
+    }
+
+}
+

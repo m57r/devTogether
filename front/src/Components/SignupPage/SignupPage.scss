@@ -1,0 +1,41 @@
+.SignupPage{
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto; 
+
+    video, .video_container{  
+        height: 150vh;
+        width: 100vw
+    }
+
+    .video_title{
+        display: none; 
+    }
+
+    .SignupForm{
+            position: absolute; 
+            top: 15%; 
+            display:flex; 
+            flex-direction: column;
+            width: 100%; 
+    }
+}
+
+@media screen and (min-width: 650px) {
+    .LoginPage .LoginForm{
+        width: 90%; 
+    }; 
+}
+
+@media screen and (min-width: 900px) {
+    .LoginPage .LoginForm{
+        width: 70%; 
+    };  
+}
+
+@media screen and (min-width: 1500px) {
+    .LoginPage .LoginForm{
+        width: 60%; 
+    };  
+}

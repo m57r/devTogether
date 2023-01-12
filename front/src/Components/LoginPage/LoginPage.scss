@@ -1,0 +1,46 @@
+@use 'src/styles/vars'; 
+
+.LoginPage{
+
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;  
+    height: 100vh; 
+
+    video{  
+        height: 100vh;
+        width: 100vw
+        
+    }
+
+    .video_title{
+        display: none; 
+    }
+
+    .LoginForm{
+            position: absolute; 
+            top: 15%; 
+            display:flex; 
+            flex-direction: column;
+            width: 100%; 
+    }
+}
+
+@media screen and (min-width: 650px) {
+    .LoginPage .LoginForm{
+        width: 90%; 
+    }; 
+}
+
+@media screen and (min-width: 900px) {
+    .LoginPage .LoginForm{
+        width: 70%; 
+    };  
+}
+
+@media screen and (min-width: 1500px) {
+    .LoginPage .LoginForm{
+        width: 60%; 
+    };  
+}

@@ -2,7 +2,7 @@ const { Category } = require('../models');
 
 const filterController = {
 
-	async getAllTechnologiesByCategory(req, res){
+	async getAllTechnologiesByCategory(_req, res){
 		try {
 			const categoryList = await Category.findAll({
 				include : [

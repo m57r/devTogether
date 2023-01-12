@@ -1,28 +1,48 @@
-const { User } = require('../models');
-const emailValidator = require('email-validator'); 
-const jsonwebtoken = require('jsonwebtoken'); 
-const jwtSecret = process.env.JWT_SECRET;
-const bcrypt = require('bcrypt'); 
+const { Project, User, Technology, Language } = require('../models');
 const { escape } = require('sanitizer');
 
-const userController = {
 
-	
+const userController = {
 	/** @function 
    * Retrieve all users with technologies, languages and followers
    * @returns {[]} array containing all users.
    */
-	async getAllUsers(_req,res){
+	async getAllUsers(req,res){
 		try {
-			const userList = await User.findAll({
+			const pageNumber = Number(req.query.pageNumber); 
+			const limit = 6; 
+
+			if(isNaN(pageNumber)|| pageNumber <0 ){
+				const error = new Error('This page doesn\'t exist');
+				return  res.status(404).json({message : error.message}); 
+			}
+
+			// const pagination = paginate(pageNumber); 
+			const userList = await User.findAndCountAll({
 				include : [
 					{ association : 'user_technologies' }, 
 					{ association: 'languages' }, 
 					{ association : 'follower_user'}
-				]
+				], 
+				order: [ 
+					[ 'lastname', 'ASC' ]
+				], 
+				offset : pageNumber * limit, 
+				limit : limit
 			}); 
 
-			res.status(200).json(userList); 
+			if(userList.rows.length <= 0){
+				const error = new Error('This page doesn\'t exist');
+				return  res.status(404).json({message : error.message}); 
+			}
+
+			const totalUserCount = await User.count(); 
+			
+			res.status(200).json({
+				content : userList.rows, 
+				totalPages : Math.ceil(totalUserCount/ limit),
+				
+			}); 
 
 		} catch (error) {
 			console.error(error); 
@@ -81,162 +101,361 @@ const userController = {
 	}, 
 
 	/** @function 
-   * Create new user in database if user doesn't exist 
+   * Update user in database  
    * @param {String} firstname - user's firstname
    * @param {String} lastname- user's lastname
-   * @param {String} email- user's email
-   * @param {String} password - user's password
-   * @param {String} confirmPassword - user's confirmPassword
+   * @param {Boolean} active - true if user's profil is active, false if not 
    * @param {String} description - user's description
    * @param {String} speciality -user's speciality
    * @param {String} [linkedin_link] - user's linkedin link
    * @param {String} [github_link] - user's github link
    * @param {String} [avatar] - user's avatar
    */
-	async signUpAction(req, res){
+	async updateProfile(req,res){
 		try {
-			const { firstname, lastname, email, password, confirmPassword, description, speciality, linkedin_link, github_link, avatar } = req.body; 
-			
-			//1. Check the user doesn't exist in the DB. 
-			const searchedUser = await User.findOne({
-				where : {
-					email : escape(email)
-				}
+			const userId = Number(req.token.userId); 
+			const {firstname, lastname, active, description, speciality, linkedin_link, github_link, avatar, technologies, languages } = req.body; 
+
+			let user = await User.findByPk(userId, {
+				include : [
+					{association : 'user_technologies'},
+					{association : 'languages'},
+				]
 			}); 
-
-			if(searchedUser){
-				throw new Error('Signup does not work, invalid email or password'); 
-			}
-            
-			//2. Check that the email format is valid with email-validator
-			if(!emailValidator.validate(escape(email))){
-				throw new Error('Signup does not work, invalid email or password');
+			if(!user){
+				const error = new Error(`user with id ${userId} doesnt exists`); 
+				return  res.status(404).json({message : error.message}); 
 			}
 
-			//3. Check that the password and confirmation are identical
-			if(escape(password) !== escape(confirmPassword)){
-				throw new Error('Signup does not work, invalid email or password');
+			if(firstname.trim() != ''){
+				user.firstname = escape(firstname);
 			}
-
-			//4. Encrypting the password with bcrypt
-			const hashedPassword = bcrypt.hashSync(escape(password), 10); 
-
-			//5. Check that firstname and lastname exist
-			if(!firstname){
-				throw new Error('Signup does not work, invalid email or password');
+			if(lastname && lastname.trim() != ''){
+				user.lastname = escape(lastname);
 			}
-
-			if(!lastname){
-				throw new Error('Signup does not work, invalid email or password');
+			if(active){
+				user.active = escape(active);
 			}
-
-			//6. Create an instance, save it in the database
-			const newUser = User.build({
-				email : escape(email), 
-				password : hashedPassword, 
-				firstname : escape(firstname), 
-				lastname : escape(lastname), 
-				description : escape(description), 
-				speciality : escape(speciality)
-			});
-		
-			if(linkedin_link){
-				newUser.linkedin_link = escape(linkedin_link); 
+			if(description && description.trim() != ''){
+				user.description = escape(description);
 			}
-
-			if(github_link){
-				newUser.github_link = escape(github_link); 
+			if(speciality){
+				user.speciality = escape(speciality);
 			}
-
+			if(linkedin_link && linkedin_link.trim() != ''){
+				user.linkedin_link = escape(linkedin_link);
+			}else{
+				user.linkedin_link = null; 
+			}
+			if(github_link && github_link.trim() != ''){
+				user.github_link = escape(github_link);
+			}else{
+				user.github_link = null ;
+			}
 			if(avatar){
-				newUser.avatar = escape(avatar); 
+				user.avatar = escape(avatar);
 			}
 
-			await newUser.save(); 
-			res.status(200).json(newUser);
+			await user.save();
 
-		} catch (error) {
-			console.log(error); 
-			res.status(401).json({ message: error.message }); 
-		}
+			if(languages){
+				//1. Retrieve language's ids already present on wine and store it in array
+				const initialLangagesIdList = user.languages.map(item=>item.id); 
 
-	}, 
+				//2. Retrieve language's ids common to user and language
+				const commonlanguagesIdList = languages.filter(item => initialLangagesIdList.includes(item)); //id en commun
 
-	/** @function 
-   * Connect user and create token
-   * @param {String} email- user's email
-   * @param {String} password - user's password
-   */
-	async loginAction(req, res){
-		try {
-
-			//1. Check the user exist in the DB.
-			const searchedUser = await User.findOne({
-				where : {
-					email : escape(req.body.email)
+				//3. For the ids of langauges that are not in commonlanguagesIdList, (= to add in database)
+				// we look for the corresponding language in the database and we add them in an array
+				let languagesToAdd = []; 
+				for(let item of languages){
+					if(!commonlanguagesIdList.includes(item)){
+						const language = await Language.findByPk(item);
+						if(!language){
+							const error = new Error(`Language with id ${item} does not exist.`); 
+							return res.status(404).json({message : error.message}); 
+						}
+						languagesToAdd.push(language); 
+					}
 				}
-			});
-			if(!searchedUser){
-				throw new Error('Login does not work, invalid email or password');
-			}
-			//2. Check the password is valid (vs bdd) with compareSync of bcrypt
-			const validPassword = bcrypt.compareSync(req.body.password, searchedUser.password); 
-			if(!validPassword){
-				throw new Error('Login does not work, invalid email or password');
-			}
 
-			//3. Token JWT
-			if(searchedUser){
-				const jwtContent = { userId: searchedUser.id, role: searchedUser.role };
-				const jwtOptions = { 
-					algorithm: 'HS256', 
-					expiresIn: '3h' 
-				};
-				let token = jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions);
-				
-				return res.status(200).json({ 
-					token: token,
-					logged: true,
-					pseudo : searchedUser.firstname, 
-					role : searchedUser.role,
+				//4. For the ids of initialLangagesIdList that are not in commonlanguagesIdList (=to remove from database)
+				// we look for the corresponding language in the database and add them to an array
+				let languagesToRemove = []; 
+				for(let item of initialLangagesIdList){
+					if(!commonlanguagesIdList.includes(item)){
+						const language = await Language.findByPk(item);
+						if(!language){
+							const error = new Error(`Language with id ${item} does not exist.`); 
+							return res.status(404).json({message : error.message}); 
+						}
+						languagesToRemove.push(language); 
+					}
+				}
+
+				await user.addLanguages(languagesToAdd); 
+				await user.removeLanguages(languagesToRemove);
+
+				user = await User.findByPk(userId, {
+					include : [
+						{association : 'user_technologies'},
+						{association : 'languages'},
+					]
 				}); 
 			}
+
+			if(technologies){
+				//1. Retrieve technologies's ids already present on user and store it in array
+				let initialTechnologyIdList = user.user_technologies.map(item=>item.id); 
+
+				//2. Retrieve technologies's ids common to user and technologies
+				let commonTechnologiesIdList = technologies.filter(item => initialTechnologyIdList.includes(item)); //id en commun
+
+				//3. For the ids of technologiesIdList that are not in commonTechnologiesIdList, (= to add in database)
+				// we look for the corresponding technology in the database and we add them in an array
+				let technologiesToAdd = []; 
+				for(let item of technologies){
+					if(!commonTechnologiesIdList.includes(item)){
+						const technology = await Technology.findByPk(item);
+						if(!technology){
+							const error = new Error(`Technology with id ${item} does not exist.`); 
+							return res.status(404).json({message : error.message}); 
+						}
+						technologiesToAdd.push(technology); 
+					}
+				}
+
+				//4. For the ids of initialTechnologiesIdList that are not in commonTechnologiesIdList (=to remove from database)
+				// we look for the corresponding technology in the database and add them to an array
+				let technologiesToRemove = []; 
+				for(let item of initialTechnologyIdList){
+					if(!commonTechnologiesIdList.includes(item)){
+						const technology = await Technology.findByPk(item);
+						if(!technology){
+							const error = new Error(`Technology with id ${item} does not exist.`); 
+							return res.status(404).json({message : error.message}); 
+						}
+						technologiesToRemove.push(technology); 
+					}
+				}
+
+				await user.addUser_technologies(technologiesToAdd); 
+				await user.removeUser_technologies(technologiesToRemove);
+
+				user = await User.findByPk(userId, {
+					include : [
+						{association : 'user_technologies'},
+						{association : 'languages'},
+					]
+				});
+
+			}
+
+			res.status(200).json(user);
+
+		}catch (error) {
+			console.error(error); 
+			res.status(500).json({message : error.message}); 
+		}
+	},
+
+	async associateTechnologiesToUser(req,res){
+		try {
+			const userId = req.params.id; 
+			const { technologies } = req.body; 
+
+			let user = await User.findByPk(userId, {
+				include : 'user_technologies'
+			}); 
+
+			if(!user){
+				const error = new ErrorEvent(`User with id ${userId} does not exist`); 
+				return res.status(404).json({message : error.message}); 
+			}
+			
+			let technologyList = []; 
+			for (const id of technologies){
+				const technology = await Technology.findByPk(id); 
+				if(!technology){
+					const error = new Error(`Technology with ${id} does not exist`); 
+					return res.status(404).json({message : error.message});
+				}
+				technologyList.push(technology); 
+			}
+
+			await user.addUser_technologies(technologyList); 
+
+			user = await User.findByPk(userId, {
+				include : 'user_technologies'
+			}); 
+
+			res.status(201).json(user); 
+
 		} catch (error) {
-			console.log(error); 
-			res.status(401).json({ message: error.message });   
+			console.error(error); 
+			res.status(500).json({message : error.message}); 
+		}
+	}, 
+
+	async updateTechnologiesUser(req,res){
+		try {
+			const userId = req.params.id; 
+			const technologiesIdList = req.body.technologies; 
+
+			let user = await User.findByPk(userId, {
+				include : 'user_technologies'
+			}); 
+
+			if(!user){
+				const error = new ErrorEvent(`User with id ${userId} does not exist`); 
+				return res.status(404).json({message : error.message}); 
+			}
+
+			//1. Retrieve technologies's ids already present on wine and store it in array
+			let initialTechnologyIdList = user.user_technologies.map(item=>item.id); 
+
+			//2. Retrieve technologies's ids common to wine and grapeVarietyIdList
+			let commonTechnologiesIdList = technologiesIdList.filter(item => initialTechnologyIdList.includes(item)); //id en commun
+
+			//3. For the ids of technologiesIdList that are not in commonTechnologiesIdList, (= to add in database)
+			// we look for the corresponding grape variety in the database and we add them in an array
+			let technologiesToAdd = []; 
+			for(let item of technologiesIdList){
+				if(!commonTechnologiesIdList.includes(item)){
+					const technology = await Technology.findByPk(item);
+					if(!technology){
+						const error = new Error(`Technology with id ${item} does not exist.`); 
+						return res.status(404).json({message : error.message}); 
+					}
+					technologiesToAdd.push(technology); 
+				}
+			}
+
+			let technologiesToRemove = []; 
+			for(let item of initialTechnologyIdList){
+				if(!commonTechnologiesIdList.includes(item)){
+					const technology = await Technology.findByPk(item);
+					if(!technology){
+						const error = new Error(`Technology with id ${item} does not exist.`); 
+						return res.status(404).json({message : error.message}); 
+					}
+					technologiesToRemove.push(technology); 
+				}
+			}
+
+			await user.addUser_technologies(technologiesToAdd); 
+			await user.removeUser_technologies(technologiesToRemove);
+
+			user = await User.findByPk(userId, {
+				include: 'user_technologies',
+			});
+
+			res.status(200).json(user); 
+
+		} catch (error) {
+			console.error(error); 
+			res.status(500).json({message : error.message});
 		}
 	}, 
 
 	/** @function 
-   * Verify Token
-   * @returns {Object} objet containing logged, pseudo and role property
+   * Associate user on project ( takeStand table ) - user take stand on a project
+   * @param { Number } projectId- project's id
+   * @param { Number } userId- project's id
    */
-	async verifyToken(req,res){
+	async takeStandOnProject(req,res){
 		try {
-			const token = req.headers.authorization.split(' ')[1];
-			req.token = jsonwebtoken.verify(token, jwtSecret);
+			const userId = Number(req.token.userId); 
+			const projectId = escape(Number(req.params.projectId)); 
+	
+			if(!userId){
+				const error = new Error('"userId" property is missing');
+				return res.status(400).json({message: error.message}); 
+			}
+	
+			if(!projectId){
+				const error = new Error('"projectId" property is missing');
+				return res.status(400).json({message: error.message}); 
+			}
+	
+			let project = await Project.findByPk(projectId); 
+	
+			if(!project){
+				const error = new Error(`Project with id ${projectId} not found`);
+				return  res.status(404).json({message : error.message}); 
+			}
+				
+			const user = await User.findByPk(userId); 
+			if (!user) {
+				const error = new Error(`User with id ${userId} does not exist.`);
+				return res.status(404).json({ message: error.message });
+			}
+	
+			await project.addPositioned_users(user); 
+	
+			project.status = 'waiting';
+	
+			project = await Project.findByPk(projectId, {
+				include : 'positioned_users'
+			});
+	
+			res.status(201).json(project); 
+	
+				
+		} catch (error) {
+			console.error(error); 
+			res.status(500).json({message : error.message}); 
+		}
+	}, 
 
+	/** @function 
+   * remove user on project ( takeStand table ) - user withdraw from a project
+   * @param { Number } projectId- project's id
+   * @param { Number } userId- project's id
+   */
+	async withdrawFromProject(req,res){
+		try {
+			const userId = Number(req.token.userId); 
+			const projectId = escape(Number(req.params.projectId)); 
 
-			if(!token){
-				throw new Error('Token doesn\'t exist');
+			if(!Number(userId)){
+				const error = new Error('"userId" property is missing');
+				return res.status(400).json({message: error.message}); 
 			}
 
-			let user = await User.findByPk(req.token.userId);
-			if(!user){
-				throw new Error(`user with id ${req.token.userId} doesn't exist`);
+			if(!Number(projectId)){
+				const error = new Error('"projectId" property is missing');
+				return res.status(400).json({message: error.message}); 
 			}
- 
 
-			return res.status(200).json({ 
-				logged: true,
-				pseudo : user.firstname, 
-				role : user.role,
-			}); 
+			let project = await Project.findByPk(projectId); 
+
+			if(!project){
+				const error = new Error(`Project with id ${projectId} not found`);
+				return  res.status(404).json({message : error.message}); 
+			}
+            
+			const user = await User.findByPk(userId); 
+			if (!user) {
+				const error = new Error(`User with id ${userId} does not exist.`);
+				return res.status(404).json({ message: error.message });
+			}
+
+			await project.removePositioned_users(user); 
+
+			project = await Project.findByPk(projectId, {
+				include : 'positioned_users'
+			});
+
+			res.status(201).json(project); 
+
 			
 		} catch (error) {
-			res.status(401).json({ message : 'Invalid authentification token'});
+			console.error(error); 
+			res.status(500).json({message : error.message}); 
 		}
-	}
+	}, 
+
 };
 
 module.exports = userController; 

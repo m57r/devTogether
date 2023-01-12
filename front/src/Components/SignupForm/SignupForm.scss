@@ -1,0 +1,128 @@
+@use 'src/styles/vars'; 
+
+.SignupForm{
+    position: absolute; 
+    height: 100vh; 
+
+    &_title{
+        display: flex; 
+        flex-direction: column; 
+        text-transform: uppercase;
+        align-items : center; 
+        color: vars.$light-color; 
+        font-size: vars.$gutter*1.5;
+        font-weight: 800;
+        text-shadow: 1px 1px 2px #8b8a8a;
+        margin: vars.$gutter*2 auto vars.$gutter*3 auto; 
+
+        span{
+            text-transform: none;
+            font-size: vars.$gutter*1.4; 
+            color: vars.$purple-color;
+            font-style: italic; 
+            margin-top: vars.$gutter*2; 
+            text-decoration: underline;
+            text-shadow: 1px 1px 2px vars.$purple-color;
+        }
+    }
+
+    &_logo{
+        font-size: vars.$gutter*2.5;
+        color: vars.$primary-color; 
+        margin: 0 auto vars.$gutter*2 auto; 
+        text-shadow: 1px 1px 2px #8b8a8a;
+
+        & span{
+            font-weight:bold;
+            font-size: vars.$gutter*6;
+        }
+    }
+
+    .ui.form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    
+        .field {
+            width: 80%; 
+
+            label{
+                color: vars.$light-color; 
+            }
+
+            input, .ui.selection{
+                background-color: vars.$light-transparent;
+                width: 100%; 
+            }
+
+            input::placeholder, .default.text{ 
+                color: vars.$grey; 
+            }
+        }
+    }
+
+    &_buttons-container{
+
+        display: flex; 
+        justify-content: center;
+        align-items: center;
+        margin-top: vars.$gutter*3;
+
+        .ui.submit{
+            padding: vars.$gutter*0.5 vars.$gutter;
+            margin-right: vars.$gutter*2; 
+            background-color: vars.$purple-color;
+            color: vars.$light-color;
+            font-size: vars.$gutter*1.2;
+            font-weight: 700;
+        }
+
+        p{
+            font-size: vars.$gutter*1.3; 
+            color: vars.$purple-color;
+            font-style: italic; 
+            text-decoration: underline;
+            text-shadow: 1px 1px 2px vars.$purple-color;
+
+            span{
+                text-transform: capitalize; 
+            }
+            
+        }
+    }
+}
+
+@media screen and (min-width: 500px) {
+    .SignupForm{
+        &_title{
+            font-size: vars.$gutter*2.2;
+        } 
+
+        &_buttons-container{
+
+            .ui.submit{
+                padding: vars.$gutter*0.7 vars.$gutter*1.1;
+                margin-right: vars.$gutter*3; 
+                font-size: vars.$gutter*1.5;
+            }
+    
+            p{
+                font-size: vars.$gutter*1.5;    
+            }
+        }
+    };  
+}
+
+@media screen and (min-width: 600px) {
+    .SignupForm{
+        &_title{
+            flex-direction: row;
+            align-items: baseline; 
+
+            span{
+                margin-left: vars.$gutter*2; 
+            }
+        } 
+
+    };  
+}

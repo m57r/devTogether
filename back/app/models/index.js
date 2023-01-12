@@ -8,6 +8,7 @@ const Project = require('./project');
 const Recommendation = require('./recommendation');
 const Role = require('./role'); 
 const Tag = require('./tag');
+const TakeStand = require('./takeStand'); 
 const Technology = require('./technology');
 const User = require('./user'); 
 const UserRole = require('./user_has_role'); 
@@ -152,7 +153,7 @@ User.belongsToMany(Project, {
 // Association between project and user ( take_stand )- many to many
 Project.belongsToMany(User, {
 	as: 'positioned_users', 
-	through: 'take_stand', 
+	through: TakeStand, 
 	foreignKey: 'project_id',
 	otherKey: 'user_id', 
 	timestamps: false,
@@ -160,7 +161,7 @@ Project.belongsToMany(User, {
 
 User.belongsToMany(Project, {
 	as: 'wanted_projects', 
-	through: 'take_stand', 
+	through: TakeStand, 
 	foreignKey: 'user_id',
 	otherKey: 'project_id',
 	timestamps: false,
@@ -336,6 +337,7 @@ module.exports = {
 	Recommendation,
 	Role, 
 	Tag, 
+	TakeStand, 
 	Technology, 
 	User,
 	UserRole, 

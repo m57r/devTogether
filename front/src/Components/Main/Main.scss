@@ -1,0 +1,382 @@
+@use 'src/styles/vars';
+
+.main {
+    &_project-owner {
+        position: relative; //need for triangles
+        background-color: vars.$primary-color;
+        padding: vars.$gutter vars.$gutter*2.5;
+        height: auto;
+        color:vars.$light-color;
+
+        &_triangle {
+            display: inline-block;
+            position: absolute;
+            top: -10.5vw;
+            left: 0;
+            height: 0;
+            width: 0;
+            border-right: 100vw solid transparent;
+            border-bottom: 10.6vw solid vars.$primary-color;
+        }
+
+        &_triangle2 {
+            display: inline-block;
+            position: absolute;
+            height: 0;
+            width: 0;
+            top: -1vw;
+            left: 0;
+            border-bottom: 3vw solid vars.$primary-color;
+            border-left: 100vw solid transparent;
+        }
+
+        &_buttons-container {
+            margin-top: vars.$gutter*2.5;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            p {
+                font-size: vars.$gutter;
+                text-align: center;
+                font-style: italic;
+            }
+        }
+
+        &_content--right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: vars.$gutter*2 0;
+
+            &_name {
+                font-weight: 600;
+            }
+
+            &_role {
+                font-size: vars.$gutter;
+                padding: vars.$gutter*0.5;
+            }
+
+            img {
+                width: 20vw;
+                margin: vars.$gutter*2.5 0 vars.$gutter 0;
+            }
+
+            &_text {
+                font-style: italic;
+                text-align: center;
+                padding: 0 vars.$gutter*1 vars.$gutter*1 vars.$gutter*1;
+            }
+
+            &_text:before {
+                position: relative;
+                left: -10px;
+                content: url(./quote-left.png)
+            }
+
+            &_text:after {
+                position: relative;
+                top: 5px;
+                right: -10px;
+                content: url(./quote-right.png);
+            }
+
+        }
+    }
+
+    &_developer {
+        display: flex;
+        align-items: center;
+        position: relative; //for triangle
+        background-color: vars.$light-color;
+        padding: vars.$gutter vars.$gutter*2.5;
+        height: 50vh;
+        color: vars.$primary-color;
+
+        &_triangle {
+            display: inline-block;
+            position: absolute;
+            height: 0;
+            width: 0;
+            top: -8vw;
+            left: 0;
+            border-bottom: 8vw solid rgba(217, 217, 217, 0.37);
+            border-left: 100vw solid transparent;
+        }
+
+        &_content--right{
+            display: none; 
+        }
+    }
+
+    .paragraph {
+        margin: vars.$gutter 0;
+
+        &_title {
+            margin-bottom: vars.$gutter*0.3;
+            font-size: vars.$gutter*1.1;
+            font-weight: 600;
+        }
+
+        &_text {
+            font-size: vars.$gutter*1.1;
+
+            span {
+                font-weight: bold;
+            }
+        }
+    }
+
+    button {
+        border: none;
+        padding: vars.$gutter*0.2 vars.$gutter*0.8;
+        border-radius: 10px;
+
+        background-color: vars.$purple-color;
+        color: vars.$light-color;
+        font-size: vars.$gutter*1.1;
+        font-weight: 700;
+    }
+
+    @media screen and (min-width: 480px) {
+        button {
+            padding: vars.$gutter*0.3 vars.$gutter*0.9;
+            font-size: vars.$gutter*1.2;
+        }
+
+        .paragraph {
+            margin: vars.$gutter*1.5 0;
+
+            &_title {
+                margin-bottom: vars.$gutter*1.1;
+                font-size: vars.$gutter*1.3;
+            }
+
+            &_text {
+                font-size: vars.$gutter*1.25;
+            }
+        }
+
+        .main_project-owner {
+
+            &_triangle {
+                top: -4.5vw;
+                border-bottom: 4.6vw solid vars.$primary-color;
+            }
+        }
+
+        img {
+            width: 15vw;
+            margin-bottom: vars.$gutter;
+        }
+    }
+
+    @media screen and (min-width: 700px) {
+
+        .main_project-owner {
+            padding: 0 vars.$gutter*3 vars.$gutter*3 vars.$gutter*3;    
+            height: 55vh; 
+
+            &_triangle {
+                top: -5.5vw;
+                border-bottom: 6.5vw solid vars.$primary-color;
+            }
+
+            &_content{
+                display: flex; 
+                justify-content: space-around;
+                
+                &--left {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    width: 50%; 
+                }
+
+                &--right {
+                    width: 50%; 
+                    &_role {
+                        font-size: vars.$gutter;
+                        color: vars.$light-color;
+                        padding: vars.$gutter*0.5;
+                    }
+    
+                    &_text {
+                        padding: 0 vars.$gutter*0 vars.$gutter*0.5 vars.$gutter*1;
+                        font-size: vars.$gutter*1.1;
+                    }
+                }
+            }
+
+            .main_developer{
+                display : flex; 
+                justify-content: center;
+            }
+
+            &_buttons-container{
+                justify-content: flex-start;
+                p{
+                    font-size : vars.$gutter*1.1;
+                    margin-left: vars.$gutter*2; 
+                }
+            }
+        }
+
+        img {
+            width: 12vw;
+            margin-bottom: vars.$gutter;
+        }
+
+        .main_developer {
+            
+            &_triangle {
+                display: inline-block;
+                position: absolute;
+                height: 0;
+                width: 0;
+                top: -4vw;
+                left: 0;
+                border-bottom: 4vw solid rgba(217, 217, 217, 0.37);
+                border-left: 100vw solid transparent;
+            }
+
+            &_content{
+
+                display: flex; 
+                flex-direction: row-reverse;
+                justify-content: space-around;
+
+                &--left{
+                    width : 50%; 
+                }
+
+                &--right{
+                    display: flex;
+                    flex-direction: column; 
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+
+          
+        }
+
+
+    }
+
+    @media screen and (min-width: 950px) {
+       
+        .main{
+            &_project-owner{
+                padding: vars.$gutter vars.$gutter*5 vars.$gutter*3 vars.$gutter*5;  
+
+                &_buttons-container{
+                    justify-content: flex-start;
+                    p{
+                        font-size : vars.$gutter*1.1;
+                        margin-left: vars.$gutter*2; 
+                    }
+                }
+
+                &_content--right {
+
+                    &_role {
+                        font-size: vars.$gutter*1.2;
+                    }
+    
+                    &_text {
+                        padding: 0 vars.$gutter*0 vars.$gutter*0.5 vars.$gutter*1;
+                        font-size: vars.$gutter*1.2;
+                        width: 40vw;
+                    }
+                }
+            }
+
+            img{
+                width: 10vw; 
+            }
+
+            
+        } 
+    }
+
+    @media screen and (min-width: 1200px) {
+        .main{
+            &_project-owner{
+
+                padding : vars.$gutter*2 vars.$gutter*8;  
+                height: 70vh; 
+
+               &_content--left{
+                   width: 80vh;
+                   padding: vars.$gutter*2; 
+               }
+
+               &_triangle {
+                display: inline-block;
+                position: absolute;
+                top: -2.5vw;
+                left: 0;
+                height: 0;
+                width: 0;
+                border-right: 100vw solid transparent;
+                border-bottom: 2.8vw solid vars.$primary-color;
+                }
+
+                &_triangle2 {
+                    display: inline-block;
+                    position: absolute;
+                    height: 0;
+                    width: 0;
+                    top: -1vw;
+                    left: 0;
+                    border-bottom: 2.5vw solid vars.$primary-color;
+                    border-left: 100vw solid transparent;
+                }
+
+                &_buttons-container{
+                    p{
+                        font-size : vars.$gutter*1.3; 
+                    }
+                }
+            }
+
+            &_developer{
+                display: flex; 
+                justify-content: center;
+
+                height: 60vh; 
+
+                &_triangle {
+                    top: -2vw;
+                    border-bottom: 2vw solid rgba(217, 217, 217, 0.37);
+                    border-left: 100vw solid transparent;
+                }
+            }
+        }
+
+        .paragraph {
+            &_title {
+                margin-bottom: vars.$gutter*2.5;
+                font-size: vars.$gutter*1.5;
+            }
+
+            &_text {
+                font-size: vars.$gutter*1.4;
+            }
+        }
+
+        button{
+            font-size: vars.$gutter*1.4;
+            padding: vars.$gutter*0.5 vars.$gutter;
+        }
+    }
+
+    @media screen and (min-width: 1400px) {
+        img{
+            width: 8vw; 
+        }
+    }
+
+}
