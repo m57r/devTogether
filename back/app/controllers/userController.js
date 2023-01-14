@@ -1,36 +1,71 @@
 const { Project, User, Technology, Language } = require('../models');
 const { escape } = require('sanitizer');
+const { Op } = require('sequelize');
 
 
 const userController = {
 	/** @function 
    * Retrieve all users with technologies, languages and followers
+   * @param {number} pageNumber
+   * @param {string} [searchText]
+   * @param { Array } [technologies] technology's id in array
    * @returns {[]} array containing all users.
    */
 	async getAllUsers(req,res){
 		try {
-			const pageNumber = Number(req.query.pageNumber); 
-			const limit = 6; 
+			let { pageNumber, technologies, searchText } = req.query; 
+			const limit = 6; 	
 
-			if(isNaN(pageNumber)|| pageNumber <0 ){
+			if(isNaN(Number(pageNumber))|| Number(pageNumber) <0 ){
 				const error = new Error('This page doesn\'t exist');
 				return  res.status(404).json({message : error.message}); 
 			}
 
-			// const pagination = paginate(pageNumber); 
-			const userList = await User.findAndCountAll({
+			let paramsQuery = {
 				include : [
-					{ association : 'user_technologies' }, 
+					{ association : 'user_technologies'}, 
 					{ association: 'languages' }, 
 					{ association : 'follower_user'}
 				], 
 				order: [ 
 					[ 'lastname', 'ASC' ]
 				], 
-				offset : pageNumber * limit, 
+				offset : Number(pageNumber) * limit, 
 				limit : limit
-			}); 
+			}; 
 
+			if(searchText && searchText.trim() !== ' '){
+				paramsQuery.where = {
+					lastname : { [Op.like]: `${searchText}%` }
+				};
+			} 
+
+			let userList = await User.findAndCountAll(paramsQuery); 
+
+			let count = {}; 
+			let userIdList = []; 
+
+			if(technologies){
+				technologies = technologies.split(',').map(item => Number(item));
+				
+				userList.rows.forEach(oneUser => { 
+					if(!count[oneUser.id]){
+						count[oneUser.id] = oneUser.user_technologies.map(item => item.id); 
+					} 
+				}); 
+
+				for( let item in count){
+					count[item]= count[item].filter(item => technologies.includes(item)); 
+					
+					if(count[item].length !== 0){
+						userIdList.push(Number(item)); 
+					}
+				}
+
+				userList.rows = userList.rows.filter(item => userIdList.includes(item.id)); 
+
+			}
+		
 			if(userList.rows.length <= 0){
 				const error = new Error('This page doesn\'t exist');
 				return  res.status(404).json({message : error.message}); 
@@ -40,7 +75,7 @@ const userController = {
 			
 			res.status(200).json({
 				content : userList.rows, 
-				totalPages : Math.ceil(totalUserCount/ limit),
+				totalPages : Math.ceil(totalUserCount/limit),
 				
 			}); 
 
@@ -127,7 +162,7 @@ const userController = {
 				return  res.status(404).json({message : error.message}); 
 			}
 
-			if(firstname.trim() != ''){
+			if(firstname && firstname.trim() != ''){
 				user.firstname = escape(firstname);
 			}
 			if(lastname && lastname.trim() != ''){

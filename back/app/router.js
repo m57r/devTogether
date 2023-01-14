@@ -19,7 +19,7 @@ router.delete('/users', authorizationMiddleware, authentificationController.dele
 router.patch('/projects/:projectId/takestand', authorizationMiddleware, userController.takeStandOnProject);
 router.patch('/projects/:projectId/withdraw', authorizationMiddleware, userController.withdrawFromProject);
 router.patch('/users', authorizationMiddleware, userController.updateProfile);
-router.get('/users', authorizationMiddleware, userController.getAllUsers); 
+router.get('/users', userController.getAllUsers); 
 router.get('/users/:id', authorizationMiddleware, userController.getOneUserById);
 
 router.post('/users/:id/technologies', userController.associateTechnologiesToUser); 
