@@ -1,5 +1,7 @@
 import './Main.scss';
+import { Link } from 'react-router-dom'; 
 import user from './user.png'; 
+import project from './project.png'; 
 
 function Main() {
     return (
@@ -21,7 +23,7 @@ function Main() {
 
                         <div className='main_project-owner_buttons-container'>
                             <button>Déposer un projet</button>
-                            <p>Ou rechercher <br /> un développeur</p>
+                            <Link to='#' className='link'>Ou rechercher <br /> un développeur</Link>
                         </div>
                     </div>
                     
@@ -55,7 +57,7 @@ function Main() {
                     </div>
 
                     <div className='main_developer_content--right'>
-                        <img src={user} alt='user'/>
+                        <img src={project} alt='project'/>
                         <h3 className ='main_developer_content_title-project'> Projet Universe</h3>
                     </div>
                 

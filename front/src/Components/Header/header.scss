@@ -2,6 +2,7 @@
 
 .header{
     display: flex; 
+    width: 100%; 
     justify-content: space-between;
     align-items: center; 
     padding : vars.$gutter vars.$gutter*3; 
@@ -37,14 +38,19 @@
         display : flex;
         align-items: baseline;
 
-        ul{
+        .navLink_items{
             display : flex;
             flex-direction : row; 
 
-            li{
+            .navLink_item{
                 color : vars.$primary-color; 
                 font-size: vars.$gutter*1.1; 
                 padding : 0 vars.$gutter; 
+            }
+
+            .navLink_item:hover{
+                font-weight: bold; 
+                transition-duration: 2ms;
             }
         }
 
@@ -64,9 +70,9 @@
 
 
 @media screen and (min-width: 930px) {
-    .navLink--desktop ul{s
-        li{
-            font-size: vars.$gutter*1.2; 
+    .navLink--desktop .navLink_items{
+        .navLink_item{
+            font-size: vars.$gutter*1.4; 
             padding : 0 vars.$gutter*1.5;
         }
     }

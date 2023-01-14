@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'; 
 import './header.scss';
 
 function Header() {
@@ -15,8 +16,8 @@ function Header() {
 
             <nav className='navLink--desktop'>
                 <ul className='navLink_items navLink_items--desktop'>
-                    <li className='navLink_item--desktop'>Se connecter</li>
-                    <li className='navLink_item--desktop'>S'inscrire</li>
+                    <NavLink to='/login'className='navLink_item navLink_item--desktop'>Se connecter</NavLink>
+                    <NavLink to='/signup' className='navLink_item navLink_item--desktop'>S'inscrire</NavLink>
                     {/* <li className='navLink_item--desktop'>Trouver un projet</li>
                     <li className='navLink_item--desktop'>Proposer un projet</li>
                     <li className='navLink_item--desktop'>Former une équipe</li> */}

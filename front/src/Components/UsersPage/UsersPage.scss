@@ -1,0 +1,8 @@
+@use 'src/styles/vars'; 
+
+.usersPage{
+    background-image : url('../../../public/image/background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-bottom: 2rem;
+}

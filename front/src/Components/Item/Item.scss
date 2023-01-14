@@ -1,0 +1,102 @@
+@use 'src/styles/vars'; 
+
+.card{
+    position: relative; 
+    display: flex; 
+    flex-direction: column;
+    align-items: center;  
+    margin : vars.$gutter*5 auto vars.$gutter*3 auto; 
+    min-height: auto; 
+    max-width: 80%; 
+    border: 0.3px solid vars.$gray-light;
+    border-radius: 25px; 
+    padding: vars.$gutter*3 vars.$gutter vars.$gutter*2 vars.$gutter; 
+    background-color: vars.$light-color; 
+
+    &_image{
+        position: absolute; 
+        top: -50px; 
+        display: flex; 
+        width: 100%; 
+        justify-content: center;
+        align-items: flex-end;
+    }
+
+    img{ 
+        width: vars.$gutter*8; 
+    }
+
+    &_header{
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+        margin-top: vars.$gutter*2.5; 
+
+        &_title{
+            font-weight: 600; 
+            font-size: vars.$gutter*1.3; 
+            color: vars.$primary-color; 
+            margin-bottom: vars.$gutter*0.8; 
+        }
+
+        &_subtitle{
+            color: vars.$gray; 
+            font-size: vars.$gutter*1.3; 
+            font-style: italic;
+        }
+
+        &_content{
+            display: flex;
+            align-items: center; 
+        }
+
+        &_flag:nth-child(2n){
+            margin: 0 vars.$gutter; 
+        }
+    }
+
+    .TagList{
+        flex-wrap: wrap; 
+        width:fit-content; 
+        .tag{
+            font-size: vars.$gutter;
+        }
+    }
+
+    .tag>*{
+        flex-basis: 20px; 
+    }
+
+    &_description{
+        color : vars.$gray; 
+        margin : 0 vars.$gutter*0.4; 
+    }
+
+    &_extra-content{
+        margin-top : vars.$gutter*2;
+        width: 100%; 
+        display: flex; 
+        align-items: baseline; 
+        justify-content: center;
+
+        &_icons{
+            margin-right: vars.$gutter*1.5; 
+            color : vars.$primary-color;
+            
+            .envelope.icon{
+                margin-right: vars.$gutter*1.5
+            }
+        }
+
+        &_link{
+            color: vars.$purple-color;
+            font-style: italic;  
+        }
+
+        &_link:hover{
+            font-weight: 600; 
+            color: vars.$purple-color;
+        }
+    }
+}
+

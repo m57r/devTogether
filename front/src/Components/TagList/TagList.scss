@@ -1,0 +1,8 @@
+@use 'src/styles/vars'; 
+
+.TagList{
+    display: flex; 
+    justify-content: center;
+    width: 50vw; 
+    flex-wrap: wrap; 
+}

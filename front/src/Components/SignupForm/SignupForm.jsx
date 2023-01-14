@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import './SignupForm.scss'; 
 
 function SignupForm(){
@@ -9,9 +10,9 @@ function SignupForm(){
                 <h1><span>DEV'</span><br />TOGETHER</h1>
             </div>
 
-            <h2 className= 'SignupForm_title'>inscription <span>Ou connexion</span></h2>
+            <h2 className= 'SignupForm_title'>inscription<NavLink className='link'>Ou connexion</NavLink></h2>
 
-            <div className='ui form'>
+            <form className='ui form'>
                 
                 <div className='required field'>
                     <label>Nom</label> 
@@ -52,26 +53,30 @@ function SignupForm(){
                     <input type="text" placeholder="Confirmer mot de passe"/>
                 </div>
 
-                <div className="inline field">
+                <div className="required inline field">
                     <div className="ui checkbox">
-                    <input type="checkbox" tabIndex="0" className="hidden"/>
+                    <input type="checkbox" name='conditions' className="hidden"/>
                     <label>J'accepte les conditions générales</label>
                     </div>
                 </div>
 
-                <div className="inline field">
+                <div className="required inline field">
                     <div className="ui checkbox">
-                    <input type="checkbox" tabIndex="0" className="hidden"/>
+                    <input type="checkbox"  name='politic' className="hidden" />
                     <label>J'accepte la politique de confidentialité relative au traitement de mes données personnelles</label>
                     </div>
                 </div>
             
-            </div>
-
             <div className='SignupForm_buttons-container'>
                 <div className="ui submit button">S'inscrire</div>
-                <p>ou <span>se</span> connecter</p>
+                <NavLink className='link'>ou <span>se</span> connecter</NavLink>
             </div>
+
+            </form>
+
+           
+
+
     
         </div>
 

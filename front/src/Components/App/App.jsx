@@ -2,6 +2,7 @@ import HomePage from "../HomePage/HomePage";
 import LoginPage from "../LoginPage/LoginPage";
 import SignupPage from "../SignupPage/SignupPage";
 import Footer from "../Footer/Footer"; 
+import UsersPage from "../UsersPage/UsersPage";
 import { Routes, Route} from 'react-router-dom';
 
 
@@ -32,6 +33,15 @@ function App() {
           element={(
             <>
               <SignupPage />
+            </>
+          )}
+        />
+
+        <Route
+          path="/users" 
+          element={(
+            <>
+              <UsersPage/>
             </>
           )}
         />

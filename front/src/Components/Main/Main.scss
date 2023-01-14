@@ -36,10 +36,17 @@
             justify-content: space-around;
             align-items: center;
 
-            p {
-                font-size: vars.$gutter;
+            .link{
+                font-size: vars.$gutter*0.9;
+                color: vars.$purple-color; 
                 text-align: center;
                 font-style: italic;
+                font-weight: 600;
+            }
+
+            .link:hover{
+                color: vars.$light-color; 
+                transition-duration: 2ms;
             }
         }
 
@@ -129,7 +136,7 @@
     }
 
     button {
-        border: none;
+        border : 1px solid vars.$purple-color;
         padding: vars.$gutter*0.2 vars.$gutter*0.8;
         border-radius: 10px;
 
@@ -139,10 +146,21 @@
         font-weight: 700;
     }
 
+    button:hover{
+        background-color: vars.$light-color;
+        color: vars.$purple-color; 
+        border : 0.5px solid vars.$purple-color; 
+        transition-duration: 2ms;
+    }
+
     @media screen and (min-width: 480px) {
         button {
             padding: vars.$gutter*0.3 vars.$gutter*0.9;
             font-size: vars.$gutter*1.2;
+        }
+
+        .link{
+            font-size: vars.$gutter*1.1;
         }
 
         .paragraph {
@@ -216,8 +234,7 @@
 
             &_buttons-container{
                 justify-content: flex-start;
-                p{
-                    font-size : vars.$gutter*1.1;
+                .link{
                     margin-left: vars.$gutter*2; 
                 }
             }

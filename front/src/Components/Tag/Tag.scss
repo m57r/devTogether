@@ -1,0 +1,11 @@
+@use 'src/styles/vars'; 
+
+.tag{
+    display: flex; 
+    max-width:fit-content; 
+    color: white; 
+    align-items: center;
+    justify-content: center;
+    margin: vars.$gutter*0.2; 
+    font-size: vars.$gutter*1.1; 
+}

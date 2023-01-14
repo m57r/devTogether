@@ -38,7 +38,7 @@
             }
 
             input::placeholder{ 
-                color: vars.$grey; 
+                color: vars.$gray; 
             }
         }
     }
@@ -52,23 +52,36 @@
         .ui.submit{
             padding: vars.$gutter*0.5 vars.$gutter;
             margin-right: vars.$gutter*2; 
+            border : 1px solid vars.$purple-color;
             background-color: vars.$purple-color;
             color: vars.$light-color;
             font-size: vars.$gutter*1.2;
             font-weight: 700;
         }
 
-        p{
+        .ui.submit:hover{
+            background-color: vars.$light-color;
+            color: vars.$purple-color; 
+            border : 0.5px solid vars.$purple-color; 
+            transition-duration: 2ms;
+        }
+
+        .link{
             font-size: vars.$gutter*1.1; 
             color: vars.$purple-color;
             font-style: italic; 
+            font-weight: 600;
             text-decoration: underline;
-            text-shadow: 1px 1px 2px vars.$purple-color;
 
             span{
                 text-transform: capitalize; 
             }
             
+        }
+
+        .link:hover{
+            color: vars.$primary-color;
+            transition-duration: 2ms;
         }
     }
 
@@ -76,6 +89,12 @@
         margin-top: vars.$gutter*2.5;
         font-size: vars.$gutter*1.4; 
         color: vars.$light-color;
+    }
+
+    &_forget-password:hover{
+        font-weight: 600; 
+        color: vars.$primary-color; 
+        transition: 1ms;
     }
 }
 
@@ -93,7 +112,7 @@
                 font-size: vars.$gutter*1.5;
             }
     
-            p{
+            .link{
                 font-size: vars.$gutter*1.5;    
             }
         }

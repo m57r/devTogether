@@ -1,0 +1,37 @@
+@use 'src/styles/vars'; 
+
+.pagination{
+    display: flex; 
+    justify-content: center; 
+    width: fit-content; 
+    align-items: center;
+    margin: 0 auto; 
+
+    i.icon{
+        margin: 0; 
+        color: vars.$gray; 
+    }
+
+    .item{
+        width: 30px; 
+        color: vars.$gray; 
+        text-align: center;
+        background-color: vars.$light-transparent; 
+        border-right: solid 0.01px vars.$gray-light; 
+        padding : vars.$gutter*0.5; 
+    }
+
+    .item:first-of-type{
+        border-radius: 5px 0px 0px 5px; 
+    }
+
+    .item:last-of-type{
+        border-radius: 0px 5px 5px 0px;  
+    }
+
+    .active{
+        color: vars.$light-color;
+        background-color: vars.$purple-color;
+        border: solid 0.5px vars.$gray-light; 
+    }
+}
