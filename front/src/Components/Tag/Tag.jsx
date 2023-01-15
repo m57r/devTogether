@@ -15,7 +15,7 @@ function Tag({
                 : 
                 <Icon className="tag_icon" icon={`simple-icons:${ name.toLowerCase()}`} />
             }
-            <h3 className='tag_name'>{ `${name[0].toUpperCase()}${name.slice(1)}` }</h3>
+            <div className='tag_name'>{ `${name[0].toUpperCase()}${name.slice(1)}` }</div>
         </div>
     )
 };

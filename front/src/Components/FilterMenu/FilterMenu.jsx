@@ -1,13 +1,12 @@
-import React, { useState }from 'react'; 
-
+import React, { useState, useContext }from 'react'; 
 import Button from '../Button/Button'; 
-
+import { TechnologiesByCategoryContext } from '../../Context/TechnologiesByCategoryContext';
 import './FilterMenu.scss'; 
 
 function FilterMenu({
     setIsOpen
 }){
-
+    const { technologiesByCategory } = useContext(TechnologiesByCategoryContext)
     const [ isFavoritesChecked, setIsFavoritesChecked ] = useState(false)
 
     return(
@@ -15,6 +14,7 @@ function FilterMenu({
             <div className= 'filterMenu'>
                 <button className="filterMenu_close-button" onClick={() => setIsOpen(false)} >x</button>
                 <form>
+
                     <div className ='filterMenu_category'>
                         <div className = 'filterMenu_category filterMenu_category--favorite' onClick = { () => setIsFavoritesChecked(!isFavoritesChecked) }>
                         { !isFavoritesChecked ? 
@@ -23,7 +23,9 @@ function FilterMenu({
                         }
                             <h2>Mes favoris</h2>
                         </div>
-                        <div className= 'filterMenu_category'>
+
+                    </div>
+                        {/* <div className= 'filterMenu_category'>
                             <h2 className='filterMenu_category_title'>statut</h2>
                             <div className="filterMenu_category_checkbox">
                                 <input 
@@ -39,50 +41,27 @@ function FilterMenu({
                                 />
                                 <label>Complet</label>
                             </div>
-                        </div>
-                        <div className= 'filterMenu_category'>
-                            <h2 className='filterMenu_category_title'>FRONT</h2>
-                            <div className="filterMenu_category_checkbox">
-                                <input type="checkbox"
-                                    name='test'
-                                />
-                                <label>test</label>
+                        </div> */}
+
+                        { technologiesByCategory.map(({id, name, technologies }) => (
+
+                            <div className= 'filterMenu_category' key={ id }>
+                                <h2 className='filterMenu_category_title'>{name}</h2>
+                                {
+                                    technologies.map(({ id, name }) => (
+                                        <div className="filterMenu_category_checkbox" key={id}>
+                                            <input type="checkbox"
+                                                name={name}
+                                            />
+                                            <label>{ name[0].toUpperCase() }{ name.slice(1) }</label>
+                                        </div>
+                                    ))
+                                }
                             </div>
-                            <div className="filterMenu_category_checkbox">
-                                <input type="checkbox"
-                                    name='test'
-                                />
-                                <label>test</label>
-                            </div>
-                            <div className="filterMenu_category_checkbox">
-                                <input type="checkbox"
-                                    name='test'
-                                />
-                                <label>test</label>
-                            </div>
-                        </div>
-                        <div className= 'filterMenu_category'>
-                            <h2 className='filterMenu_category_title'>BACK</h2>
-                            <div className="filterMenu_category_checkbox">
-                                <input type="checkbox"
-                                    name='test'
-                                />
-                                <label>test</label>
-                            </div>
-                            <div className="filterMenu_category_checkbox">
-                                <input type="checkbox"
-                                    name='test'
-                                />
-                                <label>test</label>
-                            </div>
-                            <div className="filterMenu_category_checkbox">
-                                <input type="checkbox"
-                                    name='test'
-                                />
-                                <label>test</label>
-                            </div>
-                        </div>
-                    </div>
+
+                        ))
+                        
+                        }
                     <Button 
                         text = 'Filtrer'
                         type = 'submit'
@@ -96,4 +75,4 @@ function FilterMenu({
 
 export default React.memo(FilterMenu)
 
-//TO DO PropTypes
+// TODO proptypes

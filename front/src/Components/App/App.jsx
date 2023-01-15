@@ -5,6 +5,7 @@ import Footer from "../Footer/Footer";
 import UsersPage from "../UsersPage/UsersPage";
 import { Routes, Route} from 'react-router-dom';
 
+import { TechnologiesByCategoryProvider } from '../../Context/TechnologiesByCategoryContext'; 
 
 function App() {
   return (
@@ -41,7 +42,20 @@ function App() {
           path="/users" 
           element={(
             <>
-              <UsersPage/>
+              <TechnologiesByCategoryProvider>
+                <UsersPage/>
+              </TechnologiesByCategoryProvider>
+            </>
+          )}
+        />
+
+      <Route
+          path="/projects" 
+          element={(
+            <>
+              <TechnologiesByCategoryProvider>
+                <UsersPage/>
+              </TechnologiesByCategoryProvider>
             </>
           )}
         />

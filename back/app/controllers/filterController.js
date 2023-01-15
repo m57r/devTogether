@@ -1,8 +1,8 @@
-const { Category, Technology } = require('../models');
+const { Category } = require('../models');
 
 const filterController = {
 
-	async getAllTechnologiesByCategory(_req, res){
+	async getAllTechnologies(_req, res){
 		try {
 			const categoryList = await Category.findAll({
 				include : [
@@ -15,16 +15,6 @@ const filterController = {
 			res.status(500).json({message : error.message}); 
 		}
 	}, 
-
-	async getAllTechnologies(_req, res){
-		try {
-			const technologyList = await Technology.findAll();
-			res.status(200).json(technologyList); 
-		} catch (error) {
-			console.error(error); 
-			res.status(500).json({message : error.message}); 
-		}
-	} 
 
 };
 

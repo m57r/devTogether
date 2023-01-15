@@ -1,29 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { getAllTechnologies } from '../../requests/displayRequests';
+import React from 'react';
 
 import TagList from "../TagList/TagList";
 import Button from "../Button/Button"; 
 
 import './FilterTags.scss';
 
-function FilterTags() {
+function FilterTags({
+    tagList
+}) {
     
-    const [ tagList, setTagList ] = useState([]); 
-
-    const fetchTechnologies = async () =>{
-        const response = await getAllTechnologies();
-        setTagList(response); 
-    } 
-
-    useEffect(
-        () => { fetchTechnologies() }, []
-    )
-
     return (
         <form className='ui form filterTags'>
-            <TagList
-                tagList={tagList}
-            />
+            <div className='TagList'>
+                {
+                    tagList.map(({id, technologies }) => (
+                    
+                            <TagList
+                                key={id}
+                                tagList={ technologies }
+                            />
+                    ))
+                }
+            </div>
+
             < Button 
                 text = 'Filtrer'
                 type = 'submit'

@@ -1,11 +1,11 @@
-import { useState } from 'react'; 
 import './Pagination.scss'; 
 
-function Pagination(){
-    const totalPage = 6; 
+function Pagination({
+    totalPage,
+    currentPage, 
+    setCurrentPage
+}){
     const array = Array.from(Array(totalPage), (_, index) => index +1)
-
-    const [ currentPage, setCurrentPage ] = useState(0); 
   
     return(
         <div className="pagination">

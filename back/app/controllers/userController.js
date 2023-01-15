@@ -41,7 +41,7 @@ const userController = {
 			} 
 
 			let userList = await User.findAndCountAll(paramsQuery); 
-
+			console.log('ICI', userList); 
 			let count = {}; 
 			let userIdList = []; 
 
@@ -65,7 +65,7 @@ const userController = {
 				userList.rows = userList.rows.filter(item => userIdList.includes(item.id)); 
 
 			}
-		
+			
 			if(userList.rows.length <= 0){
 				const error = new Error('This page doesn\'t exist');
 				return  res.status(404).json({message : error.message}); 
@@ -73,6 +73,7 @@ const userController = {
 
 			const totalUserCount = await User.count(); 
 			
+
 			res.status(200).json({
 				content : userList.rows, 
 				totalPages : Math.ceil(totalUserCount/limit),

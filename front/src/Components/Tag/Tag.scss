@@ -2,10 +2,19 @@
 
 .tag{
     display: flex; 
-    max-width:fit-content; 
+    width:fit-content; 
     color: white; 
     align-items: center;
     justify-content: center;
     margin: vars.$gutter*0.2; 
     font-size: vars.$gutter*1.3; 
+
+    &_name{
+        display: flex; 
+        align-items: center; 
+        flex-wrap : nowrap; 
+        height: fit-content; 
+        width: fit-content; 
+        font-size: vars.$gutter*1.2; 
+    }
 }

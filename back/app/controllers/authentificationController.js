@@ -66,8 +66,8 @@ const authentificationController = {
 			const newUser = User.build({
 				email : escape(email), 
 				password : hashedPassword, 
-				firstname : escape(firstname), 
-				lastname : escape(lastname), 
+				firstname : escape(firstname.toLowerCase()), 
+				lastname : escape(lastname.toLowerCase()), 
 				description : escape(description), 
 				speciality : escape(speciality)
 			});

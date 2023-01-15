@@ -1,6 +1,6 @@
 @use 'src/styles/vars'; 
 
-.itemList{
+.ui.three.column.stackable.grid{
     margin-top: vars.$gutter*3;
     display: flex; 
     flex-direction : row; 
@@ -8,57 +8,53 @@
     width: 95%;
     flex-wrap: wrap; 
     margin: 0 auto; 
-
-    .TagList{
-        margin: vars.$gutter*2 auto vars.$gutter*2 auto; 
-    }
 }
 
-.itemList>*{
+.ui.three.column.stackable.grid >*{
     flex-basis : 50vh; 
 }
 
 @media screen and (min-width: 384px) {
-    .itemList>*{
+    .ui.three.column.stackable.grid>*{
         flex-basis : 35vh; 
     }
 }
 
 @media screen and (min-width: 760px) {
-    .itemList>*{
+    .ui.three.column.stackable.grid>*{
         flex-basis : 30vh; 
     }
 }
 
 @media screen and (min-width: 927px) {
-    .itemList>*{
+    .ui.three.column.stackable.grid>*{
         flex-basis : 35vh; 
     }
 }
 
 @media screen and (min-width: 1044px) {
-    .itemList{
+    .ui.three.column.stackable.grid{
         width : 80%; 
         margin: 0 auto; 
     }
 }
 
 @media screen and (min-width: 1284px) {
-    .itemList{
+    .ui.three.column.stackable.grid{
         width : 70%; 
         margin: 0 auto; 
     }
 }
 
 @media screen and (min-width: 1467px) {
-    .itemList{
+    .ui.three.column.stackable.grid{
         width : 60%; 
         margin: 0 auto; 
     }
 }
 
 @media screen and (min-width: 1712px) {
-    .itemList{
+    .ui.three.column.stackable.grid{
         width : 50%; 
         margin: 0 auto; 
     }

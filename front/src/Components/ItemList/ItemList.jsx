@@ -3,17 +3,45 @@ import Item from "../Item/Item";
 import Pagination from "../Pagination/Pagination";
 import './ItemList.scss'; 
 
-function ItemList(){
+function ItemList({
+    usersList, 
+    totalPage, 
+    currentPage, 
+    setCurrentPage, 
+}){
     return(
         <>
         <div className='itemList'>
-            <Item/>
-            <Item/>
-            <Item/>
-            <Item/>
+            {
+                usersList.map(
+                    ({
+                        id, active, avatar, firstname, lastname, speciality, languages, user_technologies, description 
+                    }) => (
+                        <Item
+                            key={ id }
+                            active={ active }
+                            avatar= { avatar }
+                            firstname = { firstname }
+                            lastname = { lastname }
+                            speciality = { speciality }
+                            languages = { languages }
+                            technologies = { user_technologies }
+                            description = { description }
+                        /> 
+                    )
+                )
+            }
         </div>
         
-        <Pagination />
+        {
+            totalPage >1 && 
+            <Pagination 
+            totalPage = { totalPage }
+            currentPage = { currentPage }
+            setCurrentPage = { setCurrentPage }
+            />
+        }
+       
         
         </>
     
@@ -21,3 +49,5 @@ function ItemList(){
 }
 
 export default ItemList; 
+
+// TODO image props

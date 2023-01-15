@@ -1,15 +1,13 @@
 import React, { useState }from 'react'; 
 import { NavLink, Link } from 'react-router-dom'; 
 
-import Button from '../Button/Button'; 
-
 import './header.scss';
 
 function Header({
     setIsOpen
 }) {
 
-    const [ isLogged, setIsLogged ] = useState(true); // TO DO : Context
+    const [ isLogged, setIsLogged ] = useState(true); // TODO context
 
     return (
         <header className='header'>
@@ -20,7 +18,7 @@ function Header({
 
             <div className='header_icons'>
                 {
-                    isLogged ? <i class="header_icons large bars icon" onClick={() => setIsOpen(true)}></i>
+                    isLogged ? <i className="header_icons large bars icon" onClick={() => setIsOpen(true)}></i>
                     :  <i className="large user circle icon"></i>
                 }
                

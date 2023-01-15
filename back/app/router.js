@@ -38,7 +38,6 @@ router.patch('/projects/:projectId/giverole/:userId', authorizationMiddleware, p
 router.patch('/projects/:projectId/denied/:pendingUserId', authorizationMiddleware, projectManagerController.deniedUserOnProject);
 
 //Filter
-router.get('/technologies-category', filterController.getAllTechnologiesByCategory); 
 router.get('/technologies', filterController.getAllTechnologies);
 
 module.exports = router;
