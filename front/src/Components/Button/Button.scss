@@ -1,0 +1,19 @@
+@use 'src/styles/vars'; 
+
+.ui.submit.button, .button{
+    cursor: pointer; 
+    border : 1px solid vars.$purple-color;
+    border-radius: 10px; 
+    padding: vars.$gutter*0.5 vars.$gutter;
+    background-color: vars.$purple-color;
+    color: vars.$light-color;
+    font-size: vars.$gutter*1.2;
+    font-weight: 700;
+}
+
+.ui.submit.button:hover, .button:hover {
+    background-color: vars.$light-color;
+    color: vars.$purple-color; 
+    border : 0.5px solid vars.$purple-color; 
+    transition-duration: 2ms;
+}

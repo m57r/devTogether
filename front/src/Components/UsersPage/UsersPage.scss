@@ -5,4 +5,31 @@
     background-size: cover;
     background-repeat: no-repeat;
     padding-bottom: 2rem;
+
+    .filterTags{
+        display: none; 
+    }
+
+    .button{
+        width: fit-content;
+        padding: vars.$gutter*0.5 vars.$gutter*3;  
+        margin : vars.$gutter*2 auto vars.$gutter auto; 
+    }
 }
+
+@media screen and (min-width: 850px) {
+    .usersPage{
+        .filterTags{
+            display: flex; 
+        }
+
+        &_button, .overlay-filterMenu{
+            display: none; 
+        }
+
+        .overlay-menuBurger{
+            display: none; 
+        }
+    }
+}
+

@@ -135,27 +135,13 @@
         }
     }
 
-    button {
-        border : 1px solid vars.$purple-color;
-        padding: vars.$gutter*0.2 vars.$gutter*0.8;
-        border-radius: 10px;
-
-        background-color: vars.$purple-color;
-        color: vars.$light-color;
+    .button {
+        padding: vars.$gutter*0.3 vars.$gutter*0.9; 
         font-size: vars.$gutter*1.1;
-        font-weight: 700;
-    }
-
-    button:hover{
-        background-color: vars.$light-color;
-        color: vars.$purple-color; 
-        border : 0.5px solid vars.$purple-color; 
-        transition-duration: 2ms;
     }
 
     @media screen and (min-width: 480px) {
-        button {
-            padding: vars.$gutter*0.3 vars.$gutter*0.9;
+        .button {
             font-size: vars.$gutter*1.2;
         }
 
@@ -384,7 +370,7 @@
             }
         }
 
-        button{
+        .button{
             font-size: vars.$gutter*1.4;
             padding: vars.$gutter*0.5 vars.$gutter;
         }

@@ -1,4 +1,5 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
+import Button from '../Button/Button'; 
 import './SignupForm.scss'; 
 
 function SignupForm(){
@@ -6,11 +7,11 @@ function SignupForm(){
 
         <div className ='SignupForm'>
 
-            <div className='SignupForm_logo'>
+            <Link to='/' className='SignupForm_logo'>
                 <h1><span>DEV'</span><br />TOGETHER</h1>
-            </div>
+            </Link>
 
-            <h2 className= 'SignupForm_title'>inscription<NavLink className='link'>Ou connexion</NavLink></h2>
+            <h2 className= 'SignupForm_title'>inscription<Link to='/login' className='link'>Ou connexion</Link></h2>
 
             <form className='ui form'>
                 
@@ -68,7 +69,10 @@ function SignupForm(){
                 </div>
             
             <div className='SignupForm_buttons-container'>
-                <div className="ui submit button">S'inscrire</div>
+                <Button 
+                    text = "S'inscrire"
+                    type = 'submit'
+                />
                 <NavLink className='link'>ou <span>se</span> connecter</NavLink>
             </div>
 

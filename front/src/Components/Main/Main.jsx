@@ -1,7 +1,10 @@
-import './Main.scss';
 import { Link } from 'react-router-dom'; 
+
+import Button from '../Button/Button'; 
 import user from './user.png'; 
 import project from './project.png'; 
+
+import './Main.scss';
 
 function Main() {
     return (
@@ -22,7 +25,9 @@ function Main() {
                         <p className='paragraph paragraph_text'>Chez <span>Dev’ together</span>, de nombreux développeurs sont à la recherche de nouveaux projets.</p>
 
                         <div className='main_project-owner_buttons-container'>
-                            <button>Déposer un projet</button>
+                            <Button 
+                                text = 'Déposer un projet'
+                            />
                             <Link to='#' className='link'>Ou rechercher <br /> un développeur</Link>
                         </div>
                     </div>
@@ -52,7 +57,9 @@ function Main() {
                         <p className='paragraph paragraph_text'>Alors n’attendez-plus et positionner vous sur les projets de vos choix !</p>
 
                         <div className='main_project-owner_buttons-container'>
-                            <button>Voir les projets</button>
+                            <Button 
+                                text = 'Voir les projets'
+                            />
                         </div>
                     </div>
 

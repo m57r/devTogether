@@ -1,4 +1,6 @@
 import { NavLink, Link} from 'react-router-dom';
+import Button from '../Button/Button'; 
+
 import './LoginForm.scss'; 
 
 function LoginForm(){
@@ -6,9 +8,9 @@ function LoginForm(){
 
         <div className ='LoginForm'>
 
-            <div className='LoginForm_logo'>
+            <Link to='/' className='LoginForm_logo'>
                 <h1><span>DEV'</span><br />TOGETHER</h1>
-            </div>
+            </Link>
 
             <h2 className= 'LoginForm_title'>connexion</h2>
 
@@ -23,8 +25,12 @@ function LoginForm(){
                 </div>
 
                 <div className='LoginForm_buttons-container'>
-                    <div className="ui submit button">Se connecter</div>
-                    <NavLink to='#' className='link'>ou <span>s'inscrire</span></NavLink>
+                    <Button 
+                        text = 'Se connecter'
+                        type = 'submit'
+                    />
+
+                    <Link to='/signup' className='link'>ou <span>s'inscrire</span></Link>
                 </div>
                 <Link className='LoginForm_forget-password'>Mot de passe oublié ?</Link>
             </form>

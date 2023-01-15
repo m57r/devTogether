@@ -1,3 +1,4 @@
+import React, { useState } from 'react'; 
 import { Icon } from '@iconify/react';
 import { Link } from 'react-router-dom'; 
 import TagList from '../TagList/TagList';
@@ -6,6 +7,30 @@ import './Item.scss';
 import user from './user.png'; 
 
 function Item(){
+
+    const [ tagList, setTagList ] = useState([
+        {
+            id: 1, 
+            name : 'react', 
+            color : '00D8FF',
+        }, 
+        {
+            id: 2,
+            name : 'node Js', 
+            color : '5123D4',
+        }, 
+        {
+            id: 3,
+            name : 'php', 
+            color : 'E0234E',
+        }, 
+        {
+            id: 4,
+            name : 'HELLO', 
+            color : 'EEAC52',
+        }, 
+
+    ])
 
     return(
         <div className="card">
@@ -24,7 +49,9 @@ function Item(){
                 </div>
             </div>
 
-            <TagList />
+            <TagList 
+               tagList = { tagList } 
+            />
             
             <p className='card_description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure cupiditate recusandae ea a magnam quibusdam quo, iusto aliquid quod dolores? Voluptas obcaecati ex ducimus delectus eos dolorem veritatis nemo fugit.</p>
 

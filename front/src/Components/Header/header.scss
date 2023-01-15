@@ -27,7 +27,7 @@
 }
 
 
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 850px) {
 
     .header_icons{
         display: none; 
@@ -40,11 +40,11 @@
 
         .navLink_items{
             display : flex;
-            flex-direction : row; 
+            align-items: center;
 
             .navLink_item{
                 color : vars.$primary-color; 
-                font-size: vars.$gutter*1.1; 
+                font-size: vars.$gutter*1.25; 
                 padding : 0 vars.$gutter; 
             }
 
@@ -52,19 +52,16 @@
                 font-weight: bold; 
                 transition-duration: 2ms;
             }
-        }
+        }        
+    }
 
-        button{
-            border: none; 
-            padding: vars.$gutter*0.3 vars.$gutter*0.8;
-            border-radius: 10px; 
-    
-            background-color: vars.$purple-color;
-            color: vars.$light-color; 
-            font-size: vars.$gutter*1.1; 
-            font-weight: 700;
-        }
-        
+    .header_button{
+        border: none; 
+        border-radius : 10px; 
+        padding : vars.$gutter*0.5;
+        width: fit-content; 
+        color: vars.$light-color; 
+        background-color: vars.$purple-color;
     }
 }
 

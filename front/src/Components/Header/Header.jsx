@@ -1,29 +1,48 @@
-import { NavLink } from 'react-router-dom'; 
+import React, { useState }from 'react'; 
+import { NavLink, Link } from 'react-router-dom'; 
+
+import Button from '../Button/Button'; 
+
 import './header.scss';
 
-function Header() {
+function Header({
+    setIsOpen
+}) {
+
+    const [ isLogged, setIsLogged ] = useState(true); // TO DO : Context
+
     return (
         <header className='header'>
 
-            <div className='header_logo'>
+            <Link to='/' className='header_logo'>
                 <h1><span>DEV'</span><br />TOGETHER</h1>
-            </div>
+            </Link>
 
             <div className='header_icons'>
-                <i className="large user circle icon"></i>
-                {/* <i class="header_icons large bars icon"></i> */}
+                {
+                    isLogged ? <i class="header_icons large bars icon" onClick={() => setIsOpen(true)}></i>
+                    :  <i className="large user circle icon"></i>
+                }
+               
             </div>
 
             <nav className='navLink--desktop'>
                 <ul className='navLink_items navLink_items--desktop'>
-                    <NavLink to='/login'className='navLink_item navLink_item--desktop'>Se connecter</NavLink>
-                    <NavLink to='/signup' className='navLink_item navLink_item--desktop'>S'inscrire</NavLink>
-                    {/* <li className='navLink_item--desktop'>Trouver un projet</li>
-                    <li className='navLink_item--desktop'>Proposer un projet</li>
-                    <li className='navLink_item--desktop'>Former une équipe</li> */}
-                   
+                    {
+                        isLogged ? 
+                        <>
+                            <li><NavLink to='/login' className='navLink_item navLink_item--desktop'>Trouver un projet</NavLink></li>
+                            <li><NavLink className='navLink_item navLink_item--desktop'>Former une équipe</NavLink></li>
+                            <li><NavLink className='navLink_item navLink_item--desktop'>Proposer un projet</NavLink></li>
+                            <button className='header_button' onClick={() => setIsLogged(false)}>Déconnexion</button>
+                        </>
+                        : 
+                        <>
+                            <NavLink to='/login'className='navLink_item navLink_item--desktop'>Se connecter</NavLink>
+                            <NavLink to='/signup' className='navLink_item navLink_item--desktop'>S'inscrire</NavLink>
+                        </>
+                    }
                 </ul>
-                {/* <button>Se déconnecter</button> */}
             </nav>
 
         </header>

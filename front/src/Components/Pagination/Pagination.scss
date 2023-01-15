@@ -10,9 +10,11 @@
     i.icon{
         margin: 0; 
         color: vars.$gray; 
+        cursor: pointer;
     }
 
     .item{
+        cursor: pointer;
         width: 30px; 
         color: vars.$gray; 
         text-align: center;

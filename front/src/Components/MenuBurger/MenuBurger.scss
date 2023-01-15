@@ -1,0 +1,65 @@
+@use 'src/styles/vars'; 
+
+.overlay-menuBurger{
+    position : fixed;
+    z-index: 10000; 
+    inset:0; 
+    background-color: rgba(0,0,0,0.75);
+    display : flex; 
+    justify-content: flex-end;
+}
+
+.menu-burger{ 
+    border-top: 2.5px solid vars.$primary-color; 
+    position : relative; 
+    background-color: vars.$light-color;
+    width: fit-content; 
+    display: flex;
+    flex-direction : column; 
+    padding: vars.$gutter*5; 
+
+    &_close-button{
+        position : absolute;
+        top : 15px;
+        right: 20px;  
+        border: none;
+        font-size: vars.$gutter*1.5;
+        font-weight: 600;
+        border-radius : 20px;  
+        background-color: vars.$purple-color;
+        color: vars.$light-color;  
+    }
+
+    &_close-button:hover{
+        background-color: vars.$primary-color;
+    }
+
+    &_status{
+      display: flex; 
+      align-items: center; 
+    }
+
+    &_navLink{
+        padding: vars.$gutter*3 0; 
+
+        li{
+            margin-bottom: vars.$gutter; 
+        }
+
+        &_item:hover{
+            color: vars.$purple-color;
+            font-weight: 600;
+        }
+    }
+
+    .button{
+        margin : 0 auto; 
+    }
+
+}
+
+@media screen and (min-width: 800px) {
+    .menu-burger .button{
+        display: flex; 
+    }
+}
