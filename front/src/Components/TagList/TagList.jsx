@@ -9,8 +9,6 @@ function TagList({
 }){
 
     return(
-        // <div className='TagList'>
-        //     {
                 tagList.map(({id, name, color}) => (
                     <Tag
                         key = { id }
@@ -18,9 +16,6 @@ function TagList({
                         color = { color }
                     />
                 ))
-        //     }
-         
-        // </div>
     )
 }
 

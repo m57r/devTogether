@@ -1,110 +1,185 @@
 @use 'src/styles/vars'; 
 
-.SignupForm{
-    position: absolute; 
-    height: 100vh; 
+.SignupPage{
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto; 
 
-    &_title{
-        display: flex; 
-        flex-direction: column; 
-        text-transform: uppercase;
-        align-items : center; 
-        color: vars.$light-color; 
-        font-size: vars.$gutter*1.5;
-        font-weight: 800;
-        text-shadow: 1px 1px 2px #8b8a8a;
-        margin: vars.$gutter*2 auto vars.$gutter*3 auto; 
-
-        .link{
-            text-transform: none;
-            font-size: vars.$gutter*1.4; 
-            font-weight: lighter;
-            color: vars.$purple-color;
-            font-style: italic; 
-            margin-top: vars.$gutter*2; 
-            text-decoration: underline;
-        }
+    video, .video_container{  
+        height: 280vh;
+        width: 100vw
     }
 
-    &_logo{
-        font-size: vars.$gutter*2.5;
-        color: vars.$primary-color; 
-        margin: 0 auto vars.$gutter*2 auto; 
-        text-shadow: 1px 1px 2px #8b8a8a;
-
-        & span{
-            font-weight:bold;
-            font-size: vars.$gutter*6;
-        }
+    .video_title{
+        display: none; 
     }
 
-    .ui.form {
-        display: flex;
+    .SignupForm{
+        position: absolute; 
+        top: 10%; 
+        display:flex; 
         flex-direction: column;
-        align-items: center;
+        width: 100%; 
+        position: absolute; 
+        height: 100vh; 
     
-        .field {
+        &_title{
+            display: flex; 
+            flex-wrap: wrap;
+            flex-direction: column; 
+            text-transform: uppercase;
+            align-items : center; 
+            color: vars.$light-color; 
+            font-size: vars.$gutter*1.5;
+            font-weight: 800;
+            text-shadow: 1px 1px 2px #8b8a8a;
+            margin: vars.$gutter*2 auto vars.$gutter*3 auto; 
+    
+            .link{
+                text-transform: none;
+                font-size: vars.$gutter*1.4; 
+                font-weight: lighter;
+                color: vars.$purple-color;
+                font-style: italic; 
+                margin-top: vars.$gutter*2; 
+                text-decoration: underline;
+            }
+        }
+    
+        &_logo{
+            font-size: vars.$gutter*2.5;
+            color: vars.$primary-color; 
+            margin: 0 auto vars.$gutter*2 auto; 
+            text-shadow: 1px 1px 2px #8b8a8a;
+    
+            & span{
+                font-weight:bold;
+                font-size: vars.$gutter*6;
+            }
+        }
+    
+        .ui.form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        
+            .field {
+                width: 80%; 
+    
+                label{
+                    color: vars.$light-color;
+                    font-size: vars.$gutter*1.2; 
+                }
+    
+                input, .ui.selection, textarea{
+                    background-color: vars.$light-transparent;
+                    width: 100%; 
+                }
+    
+                input::placeholder, .default.text, textarea::placeholder{ 
+                    color: vars.$gray; 
+                }
+            }
+        }
+    
+        .required_information{
+            display: flex;
+            justify-content: flex-start; 
+            margin: 0 auto; 
+            width: 80%; 
+            color: vars.$primary-color;
+            font-weight: 600;
+        }
+
+        &_checkbox-required{
+            width: 80%; 
+            margin: vars.$gutter*1.5 auto;  
+        }
+    
+        &_buttons-container{
+    
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+            margin-top: vars.$gutter*3;
+    
+            .ui.submit{
+                padding: vars.$gutter*0.5 vars.$gutter;
+                margin-right: vars.$gutter*2; 
+                background-color: vars.$purple-color;
+                color: vars.$light-color;
+                font-size: vars.$gutter*1.2;
+                font-weight: 700;
+            }
+    
+            .ui.submit:hover{
+                background-color: vars.$light-color;
+                color: vars.$purple-color; 
+                border : 0.5px solid vars.$purple-color; 
+                transition-duration: 2ms;
+            }
+    
+            .link{
+                font-size: vars.$gutter*1.3; 
+                color: vars.$purple-color;
+                font-style: italic; 
+                text-decoration: underline;
+                font-weight: 600;
+    
+                span{
+                    text-transform: capitalize; 
+                } 
+            }
+        }
+    
+        .link:hover{
+            font-weight: 600; 
+            transition-duration: 2ms;
+            color: vars.$primary-color; 
+        }
+
+        &_technologies{ 
+            margin: 0 auto; 
             width: 80%; 
 
-            label{
-                color: vars.$light-color; 
+            &_title{ 
+                width: 80%; 
+                margin : vars.$gutter*0.5 auto 0 auto; 
+                color: white; 
+                font-weight: 600;
             }
 
-            input, .ui.selection{
-                background-color: vars.$light-transparent;
-                width: 100%; 
+            &_category_title{
+                font-weight: bold; 
+                margin-bottom: vars.$gutter; 
+                color: vars.$primary-color; 
+                text-transform: uppercase; 
             }
 
-            input::placeholder, .default.text{ 
-                color: vars.$gray; 
+            &_checkbox{
+                margin-top: vars.$gutter; 
+
+                label{
+                    margin-left: vars.$gutter; 
+                }
             }
+
+            &_checkbox:last-of-type{
+                margin-bottom: vars.$gutter; 
+            }
+
+
+        }
+
+        &_technologies>*{
+            flex-basis: 50vh; 
         }
     }
-
-    &_buttons-container{
-
-        display: flex; 
-        justify-content: center;
-        align-items: center;
-        margin-top: vars.$gutter*3;
-
-        .ui.submit{
-            padding: vars.$gutter*0.5 vars.$gutter;
-            margin-right: vars.$gutter*2; 
-            background-color: vars.$purple-color;
-            color: vars.$light-color;
-            font-size: vars.$gutter*1.2;
-            font-weight: 700;
-        }
-
-        .ui.submit:hover{
-            background-color: vars.$light-color;
-            color: vars.$purple-color; 
-            border : 0.5px solid vars.$purple-color; 
-            transition-duration: 2ms;
-        }
-
-        .link{
-            font-size: vars.$gutter*1.3; 
-            color: vars.$purple-color;
-            font-style: italic; 
-            text-decoration: underline;
-            font-weight: 600;
-
-            span{
-                text-transform: capitalize; 
-            } 
-        }
-    }
-
-    .link:hover{
-        font-weight: 600; 
-        transition-duration: 2ms;
-        color: vars.$primary-color; 
-    }
-
 
 }
+
+
 
 @media screen and (min-width: 500px) {
     .SignupForm{

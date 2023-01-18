@@ -28,7 +28,7 @@ function Main() {
                             <Button 
                                 text = 'Déposer un projet'
                             />
-                            <Link to='#' className='link'>Ou rechercher <br /> un développeur</Link>
+                            <Link to='/users' className='link'>Ou rechercher <br /> un développeur</Link>
                         </div>
                     </div>
                     
@@ -57,9 +57,11 @@ function Main() {
                         <p className='paragraph paragraph_text'>Alors n’attendez-plus et positionner vous sur les projets de vos choix !</p>
 
                         <div className='main_project-owner_buttons-container'>
+                            <Link to='/projects'>
                             <Button 
                                 text = 'Voir les projets'
                             />
+                            </Link>
                         </div>
                     </div>
 

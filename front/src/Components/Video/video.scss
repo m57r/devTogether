@@ -7,6 +7,8 @@ video{
 }
 
 .video_container{
+    border: 5px solid red; 
+    background-color: grey; 
     position: relative; // pour placer le titre au centre 
     height: 100%; 
 }

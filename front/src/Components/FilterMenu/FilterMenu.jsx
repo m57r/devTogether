@@ -1,4 +1,5 @@
 import React, { useState, useContext }from 'react'; 
+import { useLocation } from 'react-router-dom'; 
 import Button from '../Button/Button'; 
 import { TechnologiesByCategoryContext } from '../../Context/TechnologiesByCategoryContext';
 import './FilterMenu.scss'; 
@@ -8,6 +9,8 @@ function FilterMenu({
 }){
     const { technologiesByCategory } = useContext(TechnologiesByCategoryContext)
     const [ isFavoritesChecked, setIsFavoritesChecked ] = useState(false)
+    const location = useLocation(); 
+
 
     return(
         <div className = 'overlay-filterMenu'>
@@ -25,23 +28,26 @@ function FilterMenu({
                         </div>
 
                     </div>
-                        {/* <div className= 'filterMenu_category'>
-                            <h2 className='filterMenu_category_title'>statut</h2>
-                            <div className="filterMenu_category_checkbox">
-                                <input 
-                                    type="checkbox"
-                                    name='test'
-                                />
-                                <label>Ouvert</label>
-                            </div>
-                            <div className="filterMenu_category_checkbox">
-                                <input 
-                                    type="checkbox"
-                                    name='test'
-                                />
-                                <label>Complet</label>
-                            </div>
-                        </div> */}
+                        {
+                            location.pathname === '/projects' &&
+                            <div className= 'filterMenu_category'>
+                                <h2 className='filterMenu_category_title'>statut</h2>
+                                <div className="filterMenu_category_checkbox">
+                                    <input 
+                                        type="checkbox"
+                                        name='ouvert'
+                                    />
+                                    <label>Ouvert</label>
+                                </div>
+                                <div className="filterMenu_category_checkbox">
+                                    <input 
+                                        type="checkbox"
+                                        name='complet'
+                                    />
+                                    <label>Complet</label>
+                                </div>
+                            </div> 
+                        }
 
                         { technologiesByCategory.map(({id, name, technologies }) => (
 
