@@ -63,27 +63,23 @@ INSERT INTO "user"("firstname", "lastname", "email", "password", "avatar", "spec
 ('brooklyn', 'simmons', 'brooklyn1@mail.com', '124575', 'brooklyn_simmons', 'front','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.'),
 ('courtney', 'henry', 'henry1@mail.com', '12341235', 'henry_courtney', 'front','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.'),  
 ('kristin', 'watson', 'kristin1@mail.com', '12341554', 'kristin_watson', 'front','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.'); 
-('brooklyn', 'simmons', 'brooklyn1@mail.com', '124575', 'brooklyn_simmons', 'front','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.'),
-('courtney', 'henry', 'henry1@mail.com', '12341235', 'henry_courtney', 'front','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.'),  
-('kristin', 'watson', 'kristin1@mail.com', '12341554', 'kristin_watson', 'front','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.'); 
-
 
 INSERT INTO "project"("name", "description", "team_description", "repo_github", "user_id") VALUES
-('Balder', 'Qui cum ulla quos cum deflecti Petobionem insidiarum praestitutum quos praestitutum oppidum fatorum omnes omnes suis imperio in suis ubi.', 
+('balder', 'Qui cum ulla quos cum deflecti Petobionem insidiarum praestitutum quos praestitutum oppidum fatorum omnes omnes suis imperio in suis ubi.', 
 'Comes induratae fames tuebatur efferebantur comes Castricius rabie fames quam.', 'lien vers le repo',2), 
-('Universe', 'Enim nostri morte velut quam aerarii nobis per ulla piget exuviae voluntaria foederato facta culpa magis ob hanc angustias foederato piget velut populum velut repetetur hostiles insulam quam quam hausto.', 
+('universe', 'Enim nostri morte velut quam aerarii nobis per ulla piget exuviae voluntaria foederato facta culpa magis ob hanc angustias foederato piget velut populum velut repetetur hostiles insulam quam quam hausto.', 
 'Comes induratae fames tuebatur efferebantur comes Castricius rabie fames quam.', 'lien vers le repo',7), 
-('Apollon', 'Sane iudicare autem enim notas amicitias iudicarent ipsa curam cuius diligentiores diligentiores quasi rebus diligentiores habere sane homines dicere et.', 
+('apollon', 'Sane iudicare autem enim notas amicitias iudicarent ipsa curam cuius diligentiores diligentiores quasi rebus diligentiores habere sane homines dicere et.', 
 'Comes induratae fames tuebatur efferebantur comes Castricius rabie fames quam.', 'lien vers le repo',3), 
-('ColorWorld', 'Qui cum ulla quos cum deflecti Petobionem insidiarum praestitutum quos praestitutum oppidum fatorum omnes omnes suis imperio in suis ubi.', 
+('colorWorld', 'Qui cum ulla quos cum deflecti Petobionem insidiarum praestitutum quos praestitutum oppidum fatorum omnes omnes suis imperio in suis ubi.', 
 'Comes induratae fames tuebatur efferebantur comes Castricius rabie fames quam.', 'lien vers le repo',8), 
-('Chameleon', 'Enim nostri morte velut quam aerarii nobis per ulla piget exuviae voluntaria foederato facta culpa magis ob hanc angustias foederato piget velut populum velut repetetur hostiles insulam quam quam hausto.', 
+('chameleon', 'Enim nostri morte velut quam aerarii nobis per ulla piget exuviae voluntaria foederato facta culpa magis ob hanc angustias foederato piget velut populum velut repetetur hostiles insulam quam quam hausto.', 
 'Comes induratae fames tuebatur efferebantur comes Castricius rabie fames quam.', 'lien vers le repo',5), 
-('LoveClip', 'Sane iudicare autem enim notas amicitias iudicarent ipsa curam cuius diligentiores diligentiores quasi rebus diligentiores habere sane homines dicere et.', 
+('loveClip', 'Sane iudicare autem enim notas amicitias iudicarent ipsa curam cuius diligentiores diligentiores quasi rebus diligentiores habere sane homines dicere et.', 
 'Comes induratae fames tuebatur efferebantur comes Castricius rabie fames quam.', 'lien vers le repo',4),
-('Tyme', 'Qui cum ulla quos cum deflecti Petobionem insidiarum praestitutum quos praestitutum oppidum fatorum omnes omnes suis imperio in suis ubi.', 
+('tyme', 'Qui cum ulla quos cum deflecti Petobionem insidiarum praestitutum quos praestitutum oppidum fatorum omnes omnes suis imperio in suis ubi.', 
 'Comes induratae fames tuebatur efferebantur comes Castricius rabie fames quam.', 'lien vers le repo',6), 
-('Calypso', 'Qui cum ulla quos cum deflecti Petobionem insidiarum praestitutum quos praestitutum oppidum fatorum omnes omnes suis imperio in suis ubi.', 
+('calypso', 'Qui cum ulla quos cum deflecti Petobionem insidiarum praestitutum quos praestitutum oppidum fatorum omnes omnes suis imperio in suis ubi.', 
 'Comes induratae fames tuebatur efferebantur comes Castricius rabie fames quam.', 'lien vers le repo',1);
 
 INSERT INTO "master"("user_id", "technology_id") VALUES 

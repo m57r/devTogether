@@ -41,7 +41,7 @@ const userController = {
 			} 
 
 			let userList = await User.findAndCountAll(paramsQuery); 
-			console.log('ICI', userList); 
+			
 			let count = {}; 
 			let userIdList = []; 
 

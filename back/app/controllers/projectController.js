@@ -1,23 +1,27 @@
 const { Project } = require('../models');
 const { escape } = require('sanitizer');
+const { Op } = require('sequelize');
 
 const projectController = {
 
 	/** @function 
    * Retrieve all project with author, technologies, users
+   * @param {number} pageNumber
+   * @param {string} [searchText]
+   * @param { Array } [technologies] technology's id in array
    * @returns {[]} array containing all projects.
    */
 	async getAllProjects(req, res){
 		try{
-			const pageNumber = Number(req.query.pageNumber); 
-			const limit = 6; 
+			let { pageNumber, technologies, searchText } = req.query; 
+			const limit = 6; 	
 
 			if(isNaN(pageNumber)|| pageNumber <0 ){
 				const error = new Error('This page doesn\'t exist');
 				return  res.status(404).json({message : error.message}); 
 			}
 
-			const projectsList = await Project.findAndCountAll({
+			let paramsQuery = {
 				include : [
 					{ association : 'author'},
 					{ association : 'technologies'}, 
@@ -26,15 +30,50 @@ const projectController = {
 				order : [
 					[ 'created_at', 'DESC']
 				], 
-				subQuery: false,
-				offset : pageNumber * limit, 
-				limit : limit
-			});
+				offset : pageNumber * limit,  
+				limit : limit, 
+
+			};
+
+			if(searchText && searchText.trim() !== ' '){
+				paramsQuery.where = {
+					name : { [Op.like]: `${searchText}%` }
+				};
+			} 
+
+			let projectsList = await Project.findAndCountAll(paramsQuery); 
 
 			if(projectsList.rows.length <= 0){
 				const error = new Error('This page doesn\'t exist');
 				return  res.status(404).json({message : error.message}); 
 			}
+
+
+			let count = {}; 
+			let projectIdList = []; 
+
+			if(technologies){
+				technologies = technologies.split(',').map(item => Number(item));
+				
+				projectsList.rows.forEach( oneProject => { 
+					if(!count[oneProject.id]){
+						count[oneProject.id] = oneProject.technologies.map(item => item.id); 
+					} 
+				}); 
+
+				for( let item in count){
+					count[item]= count[item].filter(item => technologies.includes(item)); 
+					
+					if(count[item].length !== 0){
+						projectIdList.push(Number(item)); 
+					}
+				}
+
+				projectsList.rows = projectsList.rows.filter(item => projectIdList.includes(item.id)); 
+
+			}
+
+			console.log(count); 
 
 			const totalProjectCount = await Project.count(); 
 

@@ -25,6 +25,10 @@ Project.init({
 		allowNull: false, 
 		defaultValue : true
 	},
+	createdAt : {
+		type : DataTypes.DATE, 
+		allowNull: false, 
+	},
 },{
 	sequelize, 
 	tableName: 'project'

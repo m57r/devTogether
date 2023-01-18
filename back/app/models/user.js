@@ -26,7 +26,7 @@ User.init({
 	},
 	description : {
 		type : DataTypes.TEXT, 
-		allowNull: false
+		allowNull: true
 	}, 
 	active : {
 		type : DataTypes.BOOLEAN, 

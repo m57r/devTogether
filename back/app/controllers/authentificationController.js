@@ -14,15 +14,14 @@ const authentificationController = {
    * @param {String} email- user's email
    * @param {String} password - user's password
    * @param {String} confirmPassword - user's confirmPassword
-   * @param {String} description - user's description
    * @param {String} speciality -user's speciality
-   * @param {String} [linkedin_link] - user's linkedin link
-   * @param {String} [github_link] - user's github link
-   * @param {String} [avatar] - user's avatar
+   * @param {String} description -user's description
+   * @param {Array} technologies -user's technologies (id)
+  
    */
 	async signupAction(req, res){
 		try {
-			const { firstname, lastname, email, password, confirmPassword, description, speciality, linkedin_link, github_link, avatar } = req.body; 
+			const { firstname, lastname, email, password, confirmPassword, speciality, description, technologies } = req.body; 
 			
 			//1. Check the user doesn't exist in the DB. 
 			const searchedUser = await User.findOne({
@@ -51,40 +50,32 @@ const authentificationController = {
 			//4. Encrypting the password with bcrypt
 			const hashedPassword = bcrypt.hashSync(escape(password), 10); 
 
-			//5. Check that firstname and lastname exist
-			if(!firstname){
-				const error = new Error('Signup does not work, invalid email or password'); 
-				return  res.status(404).json({message : error.message}); 
-			}
-
-			if(!lastname){
-				const error = new Error('Signup does not work, invalid email or password'); 
+			//5. Check that firstname, lastname, description, speciality and technologies exist
+			if(!firstname || !lastname || !description || description.trim() === '' || !technologies || speciality.trim() === ''){
+				const error = new Error('ICISignup does not work, invalid email or password'); 
 				return  res.status(404).json({message : error.message}); 
 			}
 
 			//6. Create an instance, save it in the database
-			const newUser = User.build({
+			let newUser = User.build({
 				email : escape(email), 
 				password : hashedPassword, 
 				firstname : escape(firstname.toLowerCase()), 
 				lastname : escape(lastname.toLowerCase()), 
-				description : escape(description), 
-				speciality : escape(speciality)
+				speciality : escape(speciality), 
+				description : escape(description.trim()),
 			});
 		
-			if(linkedin_link){
-				newUser.linkedin_link = escape(linkedin_link); 
-			}
-
-			if(github_link){
-				newUser.github_link = escape(github_link); 
-			}
-
-			if(avatar){
-				newUser.avatar = escape(avatar); 
-			}
-
 			await newUser.save(); 
+			await newUser.addUser_technologies(technologies);
+
+			newUser = await User.findOne({
+				where : {
+					email : escape(email)
+				}, 
+				include : {association : 'user_technologies'}
+			}); 
+
 			res.status(200).json(newUser);
 
 		} catch (error) {

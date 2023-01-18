@@ -7,7 +7,7 @@
     margin: 0 auto; 
 
     video, .video_container{  
-        height: 280vh;
+        height: 160vh;
         width: 100vw
     }
 
@@ -86,7 +86,7 @@
         .required_information{
             display: flex;
             justify-content: flex-start; 
-            margin: 0 auto; 
+            margin: vars.$gutter auto; 
             width: 80%; 
             color: vars.$primary-color;
             font-weight: 600;

@@ -25,7 +25,7 @@ router.get('/users/:id', authorizationMiddleware, userController.getOneUserById)
 router.post('/users/:id/technologies', userController.associateTechnologiesToUser); 
 
 //project
-router.get('/projects', authorizationMiddleware, projectController.getAllProjects); 
+router.get('/projects', projectController.getAllProjects); 
 router.get('/projects/:projectId', authorizationMiddleware, projectController.getOneProjectById); 
 router.post('/projects', authorizationMiddleware, projectController.createProject);
 
