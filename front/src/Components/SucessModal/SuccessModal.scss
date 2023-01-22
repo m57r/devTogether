@@ -1,0 +1,27 @@
+@use 'src/styles/vars';
+
+.overlay{
+    position : fixed;
+    z-index: 10000; 
+    inset:0; 
+    background-color: rgba(0,0,0,0.75);
+    display : flex; //pour centrer la modal
+    justify-content: center; 
+    align-items: center;
+}
+
+.modal-message{
+    position: fixed;  
+    background-color: vars.$green;
+    opacity: 0.7;    
+    width: 80%; 
+    padding: vars.$gutter*2;
+    border: solid 2px green; 
+    color : vars.$light-color; 
+    font-weight : bold; 
+    text-align : center; 
+    border-radius : 10px; 
+    box-shadow : 0 0.125rem 0.25rem rgba(0,0,0,0.25);  
+    user-select: none; 
+}
+

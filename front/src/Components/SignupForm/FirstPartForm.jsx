@@ -1,48 +1,102 @@
-import React from 'react'; 
-import { NavLink, Link } from 'react-router-dom';
+import React, { useContext }from 'react'; 
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup'; 
+import { firstPartFormSchema } from "../../Validations/formSchema";
+import { getActionSetValue } from '../../actions/actions'; 
+import { NavLink, useNavigate } from 'react-router-dom';
+import Field from '../Field/Field'; 
 import Button from '../Button/Button'; 
+import { FormContext } from '../../Context/FormContext';
+import { checkEmailAvailability } from '../../requests/userRequests';
 
 function FirstPartForm(){
+    
+    const navigate = useNavigate(); 
+
+    const { formState, formDispatch } = useContext(FormContext); 
+
+    const { register, handleSubmit, setError, formState : { errors }} = useForm({
+        mode : 'all', 
+        criteriaMode: "all", 
+        resolver : yupResolver(firstPartFormSchema,  { abortEarly: false}),
+        defaultValues : formState
+    }); 
+
+    const onSubmit = async ( data, e ) => {
+        try{
+            e.preventDefault()
+            for(let item in data){
+                formDispatch(getActionSetValue(item, data[item])); 
+            }
+            console.log(data.email)
+            await checkEmailAvailability(data.email); 
+            navigate('/signup/2'); 
+        }catch(error){
+            console.log(error); 
+            setError('email', {type: 'manual', message : 'Email non disponible'}); 
+        }
+        
+    }
+
     return(
-        <>
-            <div className='required field'>
-                <label>Nom</label> 
-                <input type='text' placeholder='Nom'/>
-            </div>
+        <form className='ui form'>
+            <Field 
+                text = 'Nom'
+                type = 'text'
+                isRequired ={ true }
+                name = 'lastname'
+                register = { register }
+                error = { errors?.lastname?.message }
+            />
 
-            <div className="required field">
-                <label>Prénom</label> 
-                <input type="text" placeholder="Prénom"/>
-            </div>
+            <Field 
+                text = 'Prénom'
+                type = 'text'
+                isRequired ={ true }
+                name = 'firstname'
+                register = { register }
+                error = { errors?.firstname?.message }
+            />
 
-            <div className="required field">
-                <label>Email</label> 
-                <input type="text" placeholder="Email"/>
-            </div>
+            <Field
+                text = 'Email'
+                type = 'text'
+                isRequired ={ true }
+                name = 'email'
+                register = { register }
+                error = { errors?.email?.message }
+            />
 
-            <div className="required field">
-                <label>Mot de passe</label> 
-                <input type="text" placeholder="Mot de passe"/>
-            </div>
-
-            <div className="required field">
-                <label>Confirmation du mot de passe</label> 
-                <input type="text" placeholder="Confirmer mot de passe"/>
-            </div>
+            <Field 
+                text = 'Mot de passe'
+                type = 'text'
+                isRequired ={ true }
+                register = { register }
+                name = 'password'
+                error = { errors?.password ? errors.password : undefined }
+            />
+            
+            <Field 
+                text = 'Confirmation du mot de passe'
+                type = 'text'
+                isRequired ={ true }
+                register = { register }
+                name = 'confirmPassword'
+                error = { errors?.confirmPassword?.message }
+            />
 
             <p className='required_information'> * champs obligatoires</p>
 
             <div className='SignupForm_buttons-container'>
-                <Link  to='/signup/2'>
-                    <Button 
-                        text = "Suivant"
-                        type = 'submit'
-                    />                    
-                </Link>
+                <Button 
+                    text = "Suivant"
+                    type='submit'
+                    handleClick= { handleSubmit(onSubmit) }
+                />                    
 
-                <NavLink className='link'>ou <span>se</span> connecter</NavLink>
+                <NavLink to='/login' className='link'>ou <span>se</span> connecter</NavLink>
             </div>
-        </>
+        </form>
     )
 }
 

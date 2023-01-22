@@ -8,6 +8,32 @@ const { escape } = require('sanitizer');
 const authentificationController = {
 
 	/** @function 
+   * Check if email is available
+   * @param {String} email- user's email
+   */
+	async checkAvailabilityEmail(req, res){
+		try{
+			const email = req.body.email; 
+			const searchedUser = await User.findOne({
+				where : {
+					email : escape(email)
+				}
+			}); 
+
+			if(searchedUser){
+				const error = new Error('Email not available'); 
+				return  res.status(404).json({message : error.message}); 
+			}
+
+			res.status(200).json('ok');
+
+		}catch(error){
+			console.log(error); 
+			res.status(401).json({ message: error.message }); 	
+		}
+	}, 
+
+	/** @function 
    * Create new user in database if user doesn't exist 
    * @param {String} firstname - user's firstname
    * @param {String} lastname- user's lastname
@@ -16,12 +42,14 @@ const authentificationController = {
    * @param {String} confirmPassword - user's confirmPassword
    * @param {String} speciality -user's speciality
    * @param {String} description -user's description
+   * @param {boolean} privacy_policy -user accept privacy_policy
+   * @param {boolean} general_conditions -user accept general_conditions
+   * @param {String} description -user's description
    * @param {Array} technologies -user's technologies (id)
-  
    */
 	async signupAction(req, res){
 		try {
-			const { firstname, lastname, email, password, confirmPassword, speciality, description, technologies } = req.body; 
+			const { firstname, lastname, email, password, confirmPassword, speciality, description, technologies, privacy_policy, general_conditions} = req.body; 
 			
 			//1. Check the user doesn't exist in the DB. 
 			const searchedUser = await User.findOne({
@@ -51,8 +79,38 @@ const authentificationController = {
 			const hashedPassword = bcrypt.hashSync(escape(password), 10); 
 
 			//5. Check that firstname, lastname, description, speciality and technologies exist
-			if(!firstname || !lastname || !description || description.trim() === '' || !technologies || speciality.trim() === ''){
-				const error = new Error('ICISignup does not work, invalid email or password'); 
+			if(!firstname || firstname.trim() === ''){
+				const error = new Error('"firstname" property is missing'); 
+				return  res.status(404).json({message : error.message}); 
+			}
+
+			if(!lastname || lastname.trim() === ''){
+				const error = new Error('"lastname" property is missing'); 
+				return  res.status(404).json({message : error.message}); 
+			}
+
+			if(!description || description.trim() === ''){
+				const error = new Error('"description" property is missing'); 
+				return  res.status(404).json({message : error.message}); 
+			}
+
+			if(!technologies){
+				const error = new Error('"technologies" property is missing'); 
+				return  res.status(404).json({message : error.message}); 
+			}
+
+			if(!speciality || speciality.trim() === ''){
+				const error = new Error('"speciality" property is missing'); 
+				return  res.status(404).json({message : error.message}); 
+			}
+
+			if(!privacy_policy){
+				const error = new Error('"privacy_policy" property is missing'); 
+				return  res.status(404).json({message : error.message}); 
+			}
+
+			if(!general_conditions){
+				const error = new Error('"general_conditions" property is missing'); 
 				return  res.status(404).json({message : error.message}); 
 			}
 
@@ -64,11 +122,14 @@ const authentificationController = {
 				lastname : escape(lastname.toLowerCase()), 
 				speciality : escape(speciality), 
 				description : escape(description.trim()),
+				general_conditions: escape(general_conditions),
+				privacy_policy: escape(privacy_policy)
 			});
-		
-			await newUser.save(); 
+			
+			await newUser.save();
 			await newUser.addUser_technologies(technologies);
-
+		
+			
 			newUser = await User.findOne({
 				where : {
 					email : escape(email)

@@ -8,10 +8,10 @@ export const TechnologiesByCategoryProvider = ({children}) => {
     const [ technologiesByCategory, setTechnologiesByCategory ] = useState([]);
     const [ groupedOptions, setGroupedOptions ] = useState({})
 
-    const speciality = [
-        { value : 'Front', label : 'Front', color : '#e32e45'},
-        { value : 'Back', label : 'Back', color : 'black'},
-        { value : 'FullStack', label : 'FullStack', color : '#5123d4'}
+    const specialities = [
+        { value : 'front', label : 'Front', color : '#e32e45', name : 'speciality'},
+        { value : 'back', label : 'Back', color : 'black', name: 'speciality'},
+        { value : 'fullStack', label : 'FullStack', color : '#5123d4', name : 'speciality'}
     ]
 
     //need tu use useCallback to avoid infinit loop
@@ -25,7 +25,8 @@ export const TechnologiesByCategoryProvider = ({children}) => {
                 options : category.technologies.map(technology => ({
                     value : `${technology.id}`, 
                     label : `${technology.name[0].toUpperCase()}${technology.name.slice(1)}`, 
-                    color : `#${technology.color}`
+                    color : `#${technology.color}`, 
+                    name : 'technologies'
                 }))
             })))
         }catch(err){
@@ -39,7 +40,7 @@ export const TechnologiesByCategoryProvider = ({children}) => {
     }, [fetchTechnologiesByCategory])
 
     return(
-        <TechnologiesByCategoryContext.Provider value={ { fetchTechnologiesByCategory, technologiesByCategory, groupedOptions, speciality } }>
+        <TechnologiesByCategoryContext.Provider value={ { fetchTechnologiesByCategory, technologiesByCategory, groupedOptions, specialities } }>
                 {children}
         </TechnologiesByCategoryContext.Provider>
     )

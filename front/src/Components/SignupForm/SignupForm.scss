@@ -1,13 +1,9 @@
 @use 'src/styles/vars'; 
 
 .SignupPage{
-    display: flex; 
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto; 
-
+    
     video, .video_container{  
-        height: 160vh;
+        height: 180vh;
         width: 100vw
     }
 
@@ -26,7 +22,6 @@
     
         &_title{
             display: flex; 
-            flex-wrap: wrap;
             flex-direction: column; 
             text-transform: uppercase;
             align-items : center; 
@@ -60,6 +55,7 @@
         }
     
         .ui.form {
+            width: 100%; 
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -69,18 +65,55 @@
     
                 label{
                     color: vars.$light-color;
+                    font-weight: bold;
                     font-size: vars.$gutter*1.2; 
                 }
+
+                .checkbox {
+                    display: flex; 
+                    flex-direction: row-reverse; 
+                    align-items: center; 
+                    width: 125%; 
+                    justify-content: flex-end; 
+                    
+                    input{
+                        width : fit-content; 
+                        margin-right: vars.$gutter; 
+                    }
+                }
     
-                input, .ui.selection, textarea{
+                input, .ui.selection, textarea {
+                    margin-top: vars.$gutter*0.5;
                     background-color: vars.$light-transparent;
                     width: 100%; 
                 }
-    
+
                 input::placeholder, .default.text, textarea::placeholder{ 
                     color: vars.$gray; 
                 }
             }
+
+            .field.error input,  .field.error textarea{
+                border : 1px solid vars.$primary-color;
+                background-color: vars.$pink-transparent;
+            }
+
+            .field.error input::placeholder, .field.error textarea::placeholder{
+                color: white; 
+            }
+
+            .field.error{
+                textarea:focus, input:focus{
+                    background-color: vars.$light-transparent;
+                    color : black;
+                    border: 1px solid vars.$primary-color;
+                }
+
+                textarea:focus::placeholder, input:focus::placeholder {
+                    color : vars.$gray;
+                }
+            }
+           
         }
     
         .required_information{
@@ -95,6 +128,9 @@
         &_checkbox-required{
             width: 80%; 
             margin: vars.$gutter*1.5 auto;  
+            display: flex; 
+            flex-direction: column; 
+            align-items: flex-start; 
         }
     
         &_buttons-container{
@@ -137,43 +173,6 @@
             font-weight: 600; 
             transition-duration: 2ms;
             color: vars.$primary-color; 
-        }
-
-        &_technologies{ 
-            margin: 0 auto; 
-            width: 80%; 
-
-            &_title{ 
-                width: 80%; 
-                margin : vars.$gutter*0.5 auto 0 auto; 
-                color: white; 
-                font-weight: 600;
-            }
-
-            &_category_title{
-                font-weight: bold; 
-                margin-bottom: vars.$gutter; 
-                color: vars.$primary-color; 
-                text-transform: uppercase; 
-            }
-
-            &_checkbox{
-                margin-top: vars.$gutter; 
-
-                label{
-                    margin-left: vars.$gutter; 
-                }
-            }
-
-            &_checkbox:last-of-type{
-                margin-bottom: vars.$gutter; 
-            }
-
-
-        }
-
-        &_technologies>*{
-            flex-basis: 50vh; 
         }
     }
 

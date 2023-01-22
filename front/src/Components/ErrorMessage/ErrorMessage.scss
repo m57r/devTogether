@@ -1,0 +1,21 @@
+@use 'src/styles/vars'; 
+
+.message{
+    font-weight: bold; 
+    font-style: italic; 
+    font-size : vars.$gutter*1.2; 
+    color: vars.$primary-color;
+    margin-top: vars.$gutter; 
+
+    &-password{
+        margin-left: 0; 
+        width: fit-content; 
+        padding : vars.$gutter vars.$gutter*2; 
+        border : 1px solid vars.$primary-color; 
+        background-color : vars.$light-transparent; 
+
+        li{
+            list-style-type: disc;
+        }
+    }
+}

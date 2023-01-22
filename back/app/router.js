@@ -12,6 +12,7 @@ const authorizationMiddleware = require('./middlewares/authorizationMiddleware')
 
 //authentification
 router.post('/signup', authentificationController.signupAction); 
+router.post('/check-email', authentificationController.checkAvailabilityEmail); 
 router.post('/login', authentificationController.loginAction); 
 router.delete('/users', authorizationMiddleware, authentificationController.deleteAccount); 
 

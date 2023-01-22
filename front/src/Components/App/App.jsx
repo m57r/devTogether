@@ -6,6 +6,7 @@ import ProjectsPage from "../ProjectsPage/ProjectsPage";
 import { Routes, Route } from 'react-router-dom';
 
 import { TechnologiesByCategoryProvider } from '../../Context/TechnologiesByCategoryContext'; 
+import { FormContextProvider } from "../../Context/FormContext";
 import SignupForm from "../SignupForm/SignupForm";
 
 function App() {
@@ -34,9 +35,11 @@ function App() {
         <Route path="/signup"
            element = { 
             <>
-              <TechnologiesByCategoryProvider>
-                <SignupForm page={ 1 }/>
-              </TechnologiesByCategoryProvider>
+              <FormContextProvider>
+                <TechnologiesByCategoryProvider>
+                  <SignupForm page={ 1 }/>
+                </TechnologiesByCategoryProvider>
+              </FormContextProvider>
             </> }
         />
 
@@ -44,9 +47,11 @@ function App() {
           path="/signup/2"
           element = { 
             <>
-              <TechnologiesByCategoryProvider>
-                <SignupForm page={ 2 }/>
-              </TechnologiesByCategoryProvider>
+            <FormContextProvider>
+                <TechnologiesByCategoryProvider>
+                  <SignupForm page={ 2 }/>
+                </TechnologiesByCategoryProvider>
+              </FormContextProvider>
             </> }
         />
       

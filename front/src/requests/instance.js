@@ -8,7 +8,7 @@ const apiInstance = axios.create({
     apiInstance.defaults.headers.common['authorization'] = `Bearer ${token}`;
   }; 
 
-  export function removeToken(token){
+  export function removeToken(){
     apiInstance.defaults.headers.common['authorization'] = "";
   }; 
 

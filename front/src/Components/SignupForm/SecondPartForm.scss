@@ -1,0 +1,20 @@
+@use 'src/styles/vars';
+
+.next-button{
+    cursor: pointer; 
+    border : 1px solid vars.$gray;
+    border-radius: 10px; 
+    padding: vars.$gutter*0.5 vars.$gutter;
+    background-color: vars.$gray-light;
+    color: vars.$purple-color;
+    font-size: vars.$gutter*1.2;
+    font-weight: 700;
+    margin-right: vars.$gutter*2; 
+}
+
+.next-button:hover{
+    background-color: vars.$gray;
+    color: vars.$gray-light; 
+    border : 0.5px solid vars.$gray; 
+    transition-duration: 2ms;
+}

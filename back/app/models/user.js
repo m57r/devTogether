@@ -20,11 +20,19 @@ User.init({
 		type : DataTypes.TEXT, 
 		allowNull: false
 	},
-	avatar : {
-		type : DataTypes.TEXT, 
-		allowNull: true
-	},
 	description : {
+		type : DataTypes.TEXT, 
+		allowNull: false
+	},
+	general_conditions : {
+		type : DataTypes.BOOLEAN, 
+		allowNull: false
+	},
+	privacy_policy : {
+		type : DataTypes.BOOLEAN, 
+		allowNull: false
+	},
+	avatar : {
 		type : DataTypes.TEXT, 
 		allowNull: true
 	}, 

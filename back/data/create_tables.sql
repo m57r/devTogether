@@ -15,6 +15,8 @@ CREATE TABLE IF NOT EXISTS "user"(
     "avatar" TEXT NULL, 
     "active" BOOLEAN NOT NULL DEFAULT 'true', 
     "speciality" TEXT NOT NULL, 
+    "privacy_policy" BOOLEAN NOT NULL, 
+    "general_conditions" BOOLEAN NOT NULL, 
     "linkedin_link" TEXT NULL, 
     "github_link" TEXT NULL, 
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(), 
