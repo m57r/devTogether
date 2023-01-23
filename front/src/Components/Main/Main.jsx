@@ -1,14 +1,44 @@
-import { Link } from 'react-router-dom'; 
-
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom'; 
+import { LoginContext } from '../../Context/LoginContext';
+import MenuBurger from '../MenuBurger/MenuBurger';
 import Button from '../Button/Button'; 
 import user from './user.png'; 
 import project from './project.png'; 
-
+import Modal from '../Modal/Modal';
 import './Main.scss';
 
 function Main() {
+    const navigate = useNavigate(); 
+    const { isLogged, isMenuBurgerOpen, setIsMenuBurgerOpen } = useContext(LoginContext);
+    const [ isMessageLoginOpen, setIsMessageLoginOpen ] = useState(false); 
+
+    const handleClick = () => {
+        setIsMessageLoginOpen(true);
+        setTimeout(() => {
+            navigate('/login'); 
+        }, "3000");
+    }
+
+
     return (
         <main className='main'>
+
+            {
+                isMessageLoginOpen &&
+                < Modal 
+                    type = { 'error' }
+                    text = { "Connectez pour accéder à l'ensemble des fonctionnalités du site." }
+                />
+            }
+
+        {
+            isMenuBurgerOpen && 
+            <MenuBurger
+              setIsOpen = { setIsMenuBurgerOpen }
+            />
+          }
+
             <div className='main_project-owner'>
 
                 <div className='main_project-owner_triangle'></div>
@@ -27,8 +57,9 @@ function Main() {
                         <div className='main_project-owner_buttons-container'>
                             <Button 
                                 text = 'Déposer un projet'
+                                handleClick = { () => !isLogged ? handleClick() : navigate('/projects')}
                             />
-                            <Link to='/users' className='link'>Ou rechercher <br /> un développeur</Link>
+                            <div onClick = { () => !isLogged ? handleClick() : navigate('/users')} className='link'>Ou rechercher <br /> un développeur</div>
                         </div>
                     </div>
                     
@@ -57,11 +88,10 @@ function Main() {
                         <p className='paragraph paragraph_text'>Alors n’attendez-plus et positionner vous sur les projets de vos choix !</p>
 
                         <div className='main_project-owner_buttons-container'>
-                            <Link to='/projects'>
                             <Button 
                                 text = 'Voir les projets'
+                                handleClick = { () => !isLogged ? handleClick() : navigate('/projects')}
                             />
-                            </Link>
                         </div>
                     </div>
 
@@ -78,4 +108,4 @@ function Main() {
 }
 
 
-export default Main;
+export default React.memo(Main);

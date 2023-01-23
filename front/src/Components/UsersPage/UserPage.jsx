@@ -1,9 +1,14 @@
-import React from 'react'; 
-import DatasPage from '../DatasPage/DatasPage'; 
+import React, { useContext } from 'react'; 
+import DatasPage from '../DatasPage/DatasPage';
+import Page404 from '../Page404/Page404'; 
+import { LoginContext } from '../../Context/LoginContext'; 
 
 function UsersPage(){
+
+    const { isLogged } = useContext(LoginContext);
+
     return(
-        <DatasPage/>
+        isLogged ? <DatasPage/> : <Page404/>
     )
 }
 

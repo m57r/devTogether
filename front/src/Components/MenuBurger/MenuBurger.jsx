@@ -1,20 +1,16 @@
-import React from 'react'; 
-import { NavLink } from 'react-router-dom'; 
+import React, { useContext } from 'react'; 
+import { NavLink } from 'react-router-dom';
+import { LoginContext } from '../../Context/LoginContext'; 
 import Button from '../Button/Button'; 
-
 import './MenuBurger.scss'; 
 
-function MenuBurger({
-    setIsOpen,
-    isAvailableStatus, 
-    handleStatus
-}){
-
+function MenuBurger(){
+    const { isAvailableStatus, setIsAvailableStatus, setIsMenuBurgerOpen } = useContext(LoginContext);
     return(
         <div className = 'overlay-menuBurger' >
             <div className='menu-burger'>
-                <button className="menu-burger_close-button" onClick={() => setIsOpen(false)}>x</button>
-                <div className="menu-burger_status" onClick={() => handleStatus(!isAvailableStatus)}>
+                <button className="menu-burger_close-button" onClick={() => setIsMenuBurgerOpen(false)}>x</button>
+                <div className="menu-burger_status" onClick={() => setIsAvailableStatus(!isAvailableStatus)}>
                             <i className={ `big toggle on icon ${ isAvailableStatus ? 'green' : 'orange'}`}/>
                             <p>{ isAvailableStatus ? 'Statut en ligne' : 'Statut absent'}</p> 
                 </div>

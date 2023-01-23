@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'; 
 import { useLocation } from 'react-router-dom';
-
 import Header from "../Header/Header";
 import SearchBar from "../SearchBar/SearchBar";
 import ItemList from "../ItemList/ItemList"; 
@@ -9,7 +8,7 @@ import FilterMenu from "../FilterMenu/FilterMenu";
 import MenuBurger from "../MenuBurger/MenuBurger"; 
 import Button from '../Button/Button'; 
 import Loading from '../Loading/Loading'; 
-
+import { LoginContext } from '../../Context/LoginContext';
 import { TechnologiesByCategoryContext } from '../../Context/TechnologiesByCategoryContext';
 import { getAllProjects, getAllUsers } from "../../requests/displayRequests";
 
@@ -18,6 +17,8 @@ import './DatasPage.scss';
 
 
 function UsersPage(){
+
+  const { isMenuBurgerOpen, setIsMenuBurgerOpen } = useContext(LoginContext);
   const [ isLoading, setIsLoading ] = useState(false);
   const [ datasList, setDatasList ] = useState([])
   const [ totalPage, setTotalPage ] = useState(1)
@@ -25,8 +26,6 @@ function UsersPage(){
   const [ searchValue, setSearchValue ] = useState(''); 
   const [ technologies, setTechnologies ] = useState(''); 
   const [ IsfilterMenuOpen, setIsFilterMenuOpen ] = useState(false); 
-  const [ isAvailableStatus, setIsAvailableStatus ] = useState(true); 
-  const [ IsMenuBurgerOpen, setIsMenuBurgerOpen ] = useState(false);
 
   const { technologiesByCategory } = useContext(TechnologiesByCategoryContext); 
   const location = useLocation(); 
@@ -63,18 +62,12 @@ useEffect(
 )
     return(
         <div className='usersPage'>
-          <Header
-            setIsOpen = { setIsMenuBurgerOpen }
-            isAvailableStatus = {isAvailableStatus}
-            handleStatus = { setIsAvailableStatus }
-          />
+          <Header/>
           
           {
-            IsMenuBurgerOpen && 
+            isMenuBurgerOpen && 
             <MenuBurger
               setIsOpen = { setIsMenuBurgerOpen }
-              isAvailableStatus = {isAvailableStatus}
-              handleStatus = { setIsAvailableStatus }
             />
           }
 

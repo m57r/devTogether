@@ -27,6 +27,7 @@ export const secondPartFormSchema = yup.object().shape({
     privacy_policy: yup.bool().oneOf([true], 'Veuillez accepter la politique de confidentialité.').required(), 
 }); 
 
+
 export const userSchemaFirstPart = yup.object().shape({
     lastname : yup.string().trim('Veuillez saisir un nom.').required('Veuillez saisir un nom.'),
     firstname : yup.string().trim().required('Veuillez saisir un prénom.'),

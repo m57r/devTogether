@@ -1,10 +1,14 @@
-import React from 'react'; 
+import React, { useContext } from 'react'; 
 import DatasPage from '../DatasPage/DatasPage'; 
+import Page404 from '../Page404/Page404'; 
+import { LoginContext } from '../../Context/LoginContext'; 
 
 function ProjectsPage(){
+    const { isLogged } = useContext(LoginContext);
+
     return(
-        <DatasPage/>
+        isLogged ? <DatasPage/> : <Page404/>
     )
 }
 
-export default ProjectsPage; 
+export default React.memo(ProjectsPage); 

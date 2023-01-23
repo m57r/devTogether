@@ -24,7 +24,7 @@ function FirstPartForm(){
 
     const onSubmit = async ( data, e ) => {
         try{
-            e.preventDefault()
+            e.preventDefault(); 
             for(let item in data){
                 formDispatch(getActionSetValue(item, data[item])); 
             }

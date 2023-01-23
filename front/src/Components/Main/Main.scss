@@ -45,6 +45,7 @@
             }
 
             .link:hover{
+                cursor: pointer; 
                 color: vars.$light-color; 
                 transition-duration: 2ms;
             }

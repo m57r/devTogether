@@ -23,3 +23,8 @@ export async function signupRequest(
 
   return response.data; 
 }
+
+export async function tokenVerifyToStayConnected() {
+  const response = await apiInstance.get('/verify');
+  return response.data;
+}

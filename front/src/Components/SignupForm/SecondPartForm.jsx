@@ -11,7 +11,7 @@ import Field from '../Field/Field';
 import Textarea from '../Field/Textarea'; 
 import Button from '../Button/Button';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
-import SuccessModal from '../SucessModal/SucessModal';
+import Modal from '../Modal/Modal';
 import { FormContext } from "../../Context/FormContext"; 
 import { TechnologiesByCategoryContext } from '../../Context/TechnologiesByCategoryContext';
 import { signupRequest } from '../../requests/userRequests';
@@ -36,8 +36,6 @@ function SecondPartForm({
             technologies : formState.technologies
         }
     }); 
-
-    console.log(formState); 
 
     const navigate = useNavigate(); 
 
@@ -95,7 +93,8 @@ function SecondPartForm({
     return (
     <>
         { isSuccess && 
-            < SuccessModal 
+            < Modal 
+                type = { 'sucess' }
                 text = { formType === 'signup' ? 'Votre compte a été créé, vous pouvez vous connecter.' : 'Vos informations ont bien été modifiées' }
             />
         }

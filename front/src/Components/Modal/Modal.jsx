@@ -1,14 +1,13 @@
 import React from 'react'; 
-
-
-import './SuccessModal.scss'; 
+import './Modal.scss'; 
 
 function SuccessModal({
-    text
+    text,
+    type
 }){
     return(
         <div className = 'overlay'>
-            <div className = 'modal-message'>
+            <div className ={`modal-message modal-message${type === 'sucess' ? '--sucess' : '--error'}`}>
                 { text }
             </div>
         </div>

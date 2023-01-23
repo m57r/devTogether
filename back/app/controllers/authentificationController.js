@@ -173,7 +173,7 @@ const authentificationController = {
 
 			//3. Token JWT
 			if(searchedUser){
-				const jwtContent = { userId: searchedUser.id, role: searchedUser.role };
+				const jwtContent = { userId: searchedUser.id };
 				const jwtOptions = { 
 					algorithm: 'HS256', 
 					expiresIn: '3h' 
@@ -183,8 +183,7 @@ const authentificationController = {
 				return res.status(200).json({ 
 					token: token,
 					logged: true,
-					pseudo : searchedUser.firstname, 
-					role : searchedUser.role,
+					pseudo : searchedUser.firstname,
 				}); 
 			}
 		} catch (error) {
@@ -217,7 +216,6 @@ const authentificationController = {
 			return res.status(200).json({ 
 				logged: true,
 				pseudo : user.firstname, 
-				role : user.role,
 			}); 
 			
 		} catch (error) {

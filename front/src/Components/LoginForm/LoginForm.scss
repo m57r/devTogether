@@ -40,6 +40,69 @@
             input::placeholder{ 
                 color: vars.$gray; 
             }
+
+            label{
+                color: vars.$light-color;
+                font-weight: bold;
+                font-size: vars.$gutter*1.2; 
+            }
+        }
+    }
+
+    .ui.form .field.error label{
+        color: white; 
+    }
+
+    .ui.form .field.error input[type=text]{
+        border : 1px solid vars.$primary-color;
+        background-color : vars.$pink-transparent;
+        color: white; 
+    }
+
+    .ui.form .field.error input[type=password]{
+        border : 1px solid vars.$primary-color;
+        background-color : vars.$pink-transparent;
+        color: white; 
+    }
+
+    .ui.form .field.error input[type=text]::placeholder{
+        color: white; 
+    }
+
+
+    .ui.form .field.error input[type=password]::placeholder{
+        color: white; 
+    }
+
+    .ui.form .field.error input[type=text]:focus{
+        color : black;
+        border: 1px solid vars.$primary-color;
+    }
+
+    .ui.form .field.error input[type=password]:focus{
+        color : black;
+        border: 1px solid vars.$primary-color;
+    }
+
+    &_error-message{
+        width: 80%; 
+        background-color: vars.$pink-transparent;
+        padding: vars.$gutter vars.$gutter vars.$gutter*2 vars.$gutter ; 
+        margin : 0 auto vars.$gutter auto; 
+        font-weight: bold; 
+        border-radius: 5px; 
+        color: white; 
+        display: flex; 
+        flex-direction: column;
+        align-content: center;
+        text-align: center; 
+
+        i{
+            align-self: flex-end;
+        }
+
+        i:hover{
+            color: gray; 
         }
     }
 
