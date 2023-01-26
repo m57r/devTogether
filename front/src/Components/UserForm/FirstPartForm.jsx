@@ -28,10 +28,10 @@ function FirstPartForm(){
             for(let item in data){
                 formUserDispatch(getActionSetValue(item, data[item])); 
             }
-            
             await checkEmailAvailability(data.email); 
             navigate('/signup/2'); 
         }catch(error){
+            console.log(error); 
             setError('email', {type: 'manual', message : 'Email non disponible'}); 
         }
         

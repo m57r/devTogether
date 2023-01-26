@@ -14,9 +14,9 @@ import { getActionSetValue } from '../../actions/actions';
 import { LoginContext } from '../../Context/LoginContext';
 import { TechnologiesByCategoryContext } from '../../Context/TechnologiesByCategoryContext';
 import { getAllProjects, getAllUsers } from "../../requests/displayRequests";
-
 import './DatasPage.scss'; 
 
+// TODO  review filter + searchBar = back ? front ? reducer ? 
 
 function UsersPage(){
   const { groupedOptions } = useContext(TechnologiesByCategoryContext); 
@@ -45,15 +45,11 @@ function UsersPage(){
     try{
       setIsLoading(true);
       let response; 
-      console.log(filterState.technologies); 
       if(location.pathname === '/users'){
         response = await getAllUsers(filterState.searchValue, pageNumber, filterState.technologies) 
       }else if('/projects'){
         response = await getAllProjects(filterState.searchValue, pageNumber, filterState.technologies); 
       }
-      console.log('totalPages:', response.totalPages);
-      console.log('searchValue:', filterState.searchValue);  
-      console.log('response.content.length', response.content.length)
       setDatasList(response.content);  
       setTotalPage(response.totalPages); 
       // (filterState.searchValue.trim() === '' && filterState.technologies.trim() === '') ? setTotalPage(response.totalPages) : setTotalPage(response.content.length/6)

@@ -15,6 +15,9 @@
             font-weight:bold;
         }
     }
+    &_logo:hover{
+        color: vars.$primary-color; 
+    }
         
     &_icons{
         color : vars.$primary-color; 

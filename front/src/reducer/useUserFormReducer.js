@@ -36,8 +36,8 @@ export function formReducer(oldState, action){
 }; 
 
 export function useFormReducer(){
-    const [ formState, formDispatch ] = useReducer(formReducer, formInitialState ); 
+    const [ formUserState, formUserDispatch ] = useReducer(formReducer, formInitialState ); 
     return {
-        formState, formDispatch
+        formUserState, formUserDispatch
     }; 
 }
