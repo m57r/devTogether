@@ -25,7 +25,7 @@ const authentificationController = {
 				return  res.status(404).json({message : error.message}); 
 			}
 
-			res.status(200).json('ok');
+			res.status(200).json({message: 'email available'});
 
 		}catch(error){
 			console.log(error); 

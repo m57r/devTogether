@@ -55,14 +55,14 @@ INSERT INTO "tag"("name", "color") VALUES
 ('urgent', 'D80027');
 
 INSERT INTO "user"("firstname", "lastname", "email", "password", "avatar", "speciality", "description", "privacy_policy", "general_conditions") VALUES
-('leslie', 'alexander', 'leslie1@mail.com', '1234', 'leslie_alexander', 'fullstack', 'Autem autem sanguine nec lucratus septem quoque lucratus ut septem.', true, true), 
-('wade', 'warren', 'wade1@mail.com', '123', 'wade_warren', 'front','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.', true, true), 
-('cody', 'fisher', 'cody1@mail.com', '12345', 'cody_fisher', 'back','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.', true, true), 
-('arlene', 'mccoy', 'arlen1@mail.com', '123456', 'arlene_mccoy', 'fullstack','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.', true, true), 
-('guy', 'hawkins', 'guy1@mail.com', '12456', 'guy_hawkins', 'back','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.', true, true), 
-('brooklyn', 'simmons', 'brooklyn1@mail.com', '124575', 'brooklyn_simmons', 'front','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.', true, true),
-('courtney', 'henry', 'henry1@mail.com', '12341235', 'henry_courtney', 'front','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.', true, true),  
-('kristin', 'watson', 'kristin1@mail.com', '12341554', 'kristin_watson', 'front','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.', true, true); 
+('leslie', 'alexander', 'leslie@mail.com', '1234', 'leslie_alexander', 'fullstack', 'Autem autem sanguine nec lucratus septem quoque lucratus ut septem.', true, true), 
+('wade', 'warren', 'wade@mail.com', '123', 'wade_warren', 'front','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.', true, true), 
+('cody', 'fisher', 'cody@mail.com', '12345', 'cody_fisher', 'back','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.', true, true), 
+('arlene', 'mccoy', 'arlen@mail.com', '123456', 'arlene_mccoy', 'fullstack','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.', true, true), 
+('guy', 'hawkins', 'guy@mail.com', '12456', 'guy_hawkins', 'back','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.', true, true), 
+('brooklyn', 'simmons', 'brooklyn@mail.com', '124575', 'brooklyn_simmons', 'front','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.', true, true),
+('courtney', 'henry', 'henry@mail.com', '12341235', 'henry_courtney', 'front','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.', true, true),  
+('kristin', 'watson', 'kristin@mail.com', '12341554', 'kristin_watson', 'front','Autem autem sanguine nec lucratus septem quoque lucratus ut septem.', true, true); 
 
 INSERT INTO "project"("name", "description", "team_description", "repo_github", "user_id") VALUES
 ('balder', 'Qui cum ulla quos cum deflecti Petobionem insidiarum praestitutum quos praestitutum oppidum fatorum omnes omnes suis imperio in suis ubi.', 

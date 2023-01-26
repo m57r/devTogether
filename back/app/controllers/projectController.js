@@ -72,9 +72,6 @@ const projectController = {
 				projectsList.rows = projectsList.rows.filter(item => projectIdList.includes(item.id)); 
 
 			}
-
-			console.log(count); 
-
 			const totalProjectCount = await Project.count(); 
 
 			res.status(200).json({
