@@ -10,3 +10,8 @@ Dev’Together est un site dont l’objectif est de mettre en relation des déve
 
 ### Technologies et principes utilisés :
 Javascript, NodeJs, Express, PostgreSQL, Sequelize, React, React Hook Form, Contexte, Reducer, Sass, Semantic ui, JWT, Yup. Maquettes réalisées avec Figma.
+
+
+
+
+vidéo libre de droit - pexels (Diva Plavalaguna). 
