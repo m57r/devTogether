@@ -1,3 +1,4 @@
+import React from 'react'; 
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Video from "../Video/Video";
@@ -18,4 +19,4 @@ function HomePage(){
     )
 }
 
-export default HomePage; 
+export default React.memo(HomePage); 

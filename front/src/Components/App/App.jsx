@@ -9,7 +9,7 @@ import { Routes, Route } from 'react-router-dom';
 import { TechnologiesByCategoryProvider } from '../../Context/TechnologiesByCategoryContext'; 
 import { FormContextProvider } from "../../Context/FormContext";
 import { LoginContextProvider } from "../../Context/LoginContext";
-import SignupForm from "../SignupForm/SignupForm";
+import UserForm from "../UserForm/UserForm";
 
 function App() {
 
@@ -40,7 +40,7 @@ function App() {
               <>
                 <FormContextProvider>
                   <TechnologiesByCategoryProvider>
-                    <SignupForm page={ 1 }/>
+                    <UserForm page={ 1 }/>
                   </TechnologiesByCategoryProvider>
                 </FormContextProvider>
               </> }
@@ -52,7 +52,7 @@ function App() {
               <>
               <FormContextProvider>
                   <TechnologiesByCategoryProvider>
-                    <SignupForm page={ 2 }/>
+                    <UserForm page={ 2 }/>
                   </TechnologiesByCategoryProvider>
                 </FormContextProvider>
               </> }

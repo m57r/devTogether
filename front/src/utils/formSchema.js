@@ -21,14 +21,14 @@ export const secondPartFormSchema = yup.object().shape({
        label: yup.string().trim().required('Veuillez saisir une spécialité.'),
        name: yup.string().trim().required('Veuillez saisir une spécialité.'),
     }),
-    description : yup.string().trim().min(20, "Veuillez saisir une description d'au moins 20 caractères.").required("Veuillez saisir une description d'au moins 20 caractères."), 
+    description : yup.string().trim().min(20, "Veuillez saisir une description d'au moins 0 caractères.").required("Veuillez saisir une description d'au moins 20 caractères."), 
     technologies : yup.array().min(1, 'Veuillez choisir au moins une technologie.').required('Veuillez choisir au moins une technologie.'),
     general_conditions : yup.bool().oneOf([true], 'Veuillez accepter les conditions générales.').required(), 
     privacy_policy: yup.bool().oneOf([true], 'Veuillez accepter la politique de confidentialité.').required(), 
 }); 
 
 
-export const userSchemaFirstPart = yup.object().shape({
+export const userSchema = yup.object().shape({
     lastname : yup.string().trim('Veuillez saisir un nom.').required('Veuillez saisir un nom.'),
     firstname : yup.string().trim().required('Veuillez saisir un prénom.'),
     email : yup.string().email('Veuillez saisir un email valide.').required('Veuillez saisir un email valide.'), 
@@ -46,7 +46,7 @@ export const userSchemaFirstPart = yup.object().shape({
        label: yup.string().trim().required('Veuillez saisir une spécialité.'),
        name: yup.string().trim().required('Veuillez saisir une spécialité.'),
     }),
-    description : yup.string().trim().min(20, "Veuillez saisir une description d'au moins 20 caractères.").required("Veuillez saisir une description d'au moins 20 caractères."), 
+    description : yup.string().trim().min(30, "Veuillez saisir une description d'au moins 30 caractères.").required("Veuillez saisir une description d'au moins 20 caractères."), 
     technologies : yup.array().min(1, 'Veuillez choisir au moins une technologie.').required('Veuillez choisir au moins une technologie.'),
     general_conditions : yup.bool().oneOf([true], 'Veuillez accepter les conditions générales.').required(), 
     privacy_policy: yup.bool().oneOf([true], 'Veuillez accepter la politique de confidentialité.').required(), 

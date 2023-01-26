@@ -1,3 +1,4 @@
+import React from 'react'; 
 import video from './video.mp4'
 
 function Video(){
@@ -9,4 +10,4 @@ function Video(){
     )
 }
 
-export default Video;
+export default React.memo(Video);

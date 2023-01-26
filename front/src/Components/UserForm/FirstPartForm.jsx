@@ -1,7 +1,7 @@
 import React, { useContext }from 'react'; 
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup'; 
-import { firstPartFormSchema } from "../../Validations/formSchema";
+import { firstPartFormSchema } from "../../utils/formSchema";
 import { getActionSetValue } from '../../actions/actions'; 
 import { NavLink, useNavigate } from 'react-router-dom';
 import Field from '../Field/Field'; 
@@ -13,26 +13,25 @@ function FirstPartForm(){
     
     const navigate = useNavigate(); 
 
-    const { formState, formDispatch } = useContext(FormContext); 
+    const { formUserState, formUserDispatch } = useContext(FormContext); 
 
     const { register, handleSubmit, setError, formState : { errors }} = useForm({
         mode : 'all', 
         criteriaMode: "all", 
         resolver : yupResolver(firstPartFormSchema,  { abortEarly: false}),
-        defaultValues : formState
+        defaultValues : formUserState
     }); 
 
     const onSubmit = async ( data, e ) => {
         try{
             e.preventDefault(); 
             for(let item in data){
-                formDispatch(getActionSetValue(item, data[item])); 
+                formUserDispatch(getActionSetValue(item, data[item])); 
             }
-            console.log(data.email)
+            
             await checkEmailAvailability(data.email); 
             navigate('/signup/2'); 
         }catch(error){
-            console.log(error); 
             setError('email', {type: 'manual', message : 'Email non disponible'}); 
         }
         

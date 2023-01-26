@@ -1,40 +1,39 @@
 // import PropTypes from 'prop-types';
-import { useState } from 'react'
-import { Form, Input } from 'semantic-ui-react';
+import React, { useState } from 'react'
+import { Input, Form } from 'semantic-ui-react';
+import { useFilterReducer } from '../../reducer/useFilterReducer'; 
+import { getActionSetValue } from '../../actions/actions'; 
+
 import './SearchBar.scss'; 
 
 function SearchBar({
-    setSearchText, 
-    title
+    title,
+    placeholder, 
 }){
-
-    const [ searchValue, setSearchValue ] = useState('');
-
-    const handleSubmit = () => {
-        setSearchText(searchValue)
-    }
+    const { filterState, filterDispatch } = useFilterReducer(); 
+    // const [ value, setValue ] = useState('');
 
     return (
      <>
+        <div className='searchBar_container'>
         <h1 className='searchBar_title'>Recherchez des { title }</h1>
-        <Form onSubmit={ handleSubmit }>
-            <Form.Field>
-            <div className='searchBar_container'>
+        <Form.Field>
             <Input
                 focus
                 icon="search"
                 iconPosition="left"
-                placeholder="Recherche..."
-                value={searchValue}
-                onChange={(e) => setSearchValue(e.target.value)}
+                placeholder={ placeholder }
+                name='searchValue'
+                value={ filterState.searchValue }
+                onChange = {(e) => { filterDispatch(getActionSetValue(e.target.name, e.target.value)) }}
+                // onChange={(e) => setValue(e.target.value)}
             />
-            </div>
             </Form.Field>
-        </Form>
+        </div>
       </>  
     )
 }
 
-export default SearchBar; 
+export default React.memo(SearchBar); 
 
 // TODO propTypes 

@@ -18,8 +18,6 @@ function Item({
     location
 }){
 
-    console.log(location, active); 
-
     return(
             ((location === "/users" && active) || (location === '/projects')) &&
             <div className="card">
@@ -29,7 +27,7 @@ function Item({
                 </div>
 
                 <div className="card_header">
-                    <h1 className="card_header_title">{ title }</h1>
+                    <h1 className="card_header_title">{ `${title[0].toUpperCase()}${title.slice(1)}` }</h1>
                     <div className='card_header_content'>
                         <h2 className="card_header_subtitle"> { subtitle }</h2>
                         {   
@@ -81,4 +79,4 @@ function Item({
     )
 }
 
-export default Item; 
+export default React.memo(Item); 

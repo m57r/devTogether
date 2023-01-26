@@ -1,3 +1,4 @@
+import React from 'react'; 
 import './Pagination.scss'; 
 
 function Pagination({
@@ -6,7 +7,7 @@ function Pagination({
     setCurrentPage
 }){
     const array = Array.from(Array(totalPage), (_, index) => index +1)
-  
+    
     return(
         <div className="pagination">
             {
@@ -42,4 +43,4 @@ function Pagination({
     )
 }
 
-export default Pagination; 
+export default React.memo(Pagination); 

@@ -7,9 +7,8 @@ export const LoginContextProvider = ({children}) => {
     const token = localStorage.getItem('token');
     const [ isLogged, setIsLogged ] = useState(false); 
     const [ pseudo, setPseudo ] = useState(''); 
-    const [ isAvailableStatus, setIsAvailableStatus ] = useState(false); 
+    const [ isAvailableStatus, setIsAvailableStatus ] = useState(true); 
     const [ isMenuBurgerOpen, setIsMenuBurgerOpen ] = useState(false);  
-    const [ userRole, setUserRole ] = useState(''); 
 
     const verifyToken = async () => {
         try{

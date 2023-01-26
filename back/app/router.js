@@ -15,19 +15,19 @@ router.post('/signup', authentificationController.signupAction);
 router.post('/check-email', authentificationController.checkAvailabilityEmail); 
 router.post('/login', authentificationController.loginAction); 
 router.get('/verify', authentificationController.verifyToken); 
-router.delete('/users', authorizationMiddleware, authentificationController.deleteAccount); 
+router.delete('/users', authentificationController.deleteAccount); 
 
 //user
 router.patch('/projects/:projectId/takestand', authorizationMiddleware, userController.takeStandOnProject);
 router.patch('/projects/:projectId/withdraw', authorizationMiddleware, userController.withdrawFromProject);
-router.patch('/users', authorizationMiddleware, userController.updateProfile);
+router.patch('/users',authorizationMiddleware, userController.updateProfile);
 router.get('/users', authorizationMiddleware, userController.getAllUsers); 
 router.get('/users/:id', authorizationMiddleware, userController.getOneUserById);
 
 router.post('/users/:id/technologies', userController.associateTechnologiesToUser); 
 
 //project
-router.get('/projects', authorizationMiddleware, projectController.getAllProjects); 
+router.get('/projects', projectController.getAllProjects); 
 router.get('/projects/:projectId', authorizationMiddleware, projectController.getOneProjectById); 
 router.post('/projects', authorizationMiddleware, projectController.createProject);
 

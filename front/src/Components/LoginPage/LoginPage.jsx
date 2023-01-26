@@ -1,3 +1,4 @@
+import React from 'react'; 
 import Video from "../Video/Video";
 import LoginForm from "../LoginForm/LoginForm";
 
@@ -12,4 +13,4 @@ function LoginPage(){
     )
 }
 
-export default LoginPage; 
+export default React.memo(LoginPage); 

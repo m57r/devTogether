@@ -24,40 +24,35 @@
     }
 }
 
-@media screen and (min-width: 760px) {
-    .itemList>*{
-        flex-basis : 30vh; 
-    }
-}
-
-@media screen and (min-width: 927px) {
-    .itemList>*{
-        flex-basis : 35vh; 
-    }
-}
-
-@media screen and (min-width: 1044px) {
+@media screen and (min-width: 1018px) {
     .itemList{
         width : 80%; 
         margin: 0 auto; 
     }
 }
 
-@media screen and (min-width: 1284px) {
+@media screen and (min-width: 1210px) {
     .itemList{
         width : 70%; 
         margin: 0 auto; 
     }
 }
 
-@media screen and (min-width: 1467px) {
+@media screen and (min-width: 1384px) {
     .itemList{
-        width : 60%; 
+        width : 55%; 
         margin: 0 auto; 
     }
 }
 
-@media screen and (min-width: 1712px) {
+@media screen and (min-width: 1384px) {
+    .itemList{
+        width : 55%; 
+        margin: 0 auto; 
+    }
+}
+
+@media screen and (min-width: 1751px) {
     .itemList{
         width : 50%; 
         margin: 0 auto; 

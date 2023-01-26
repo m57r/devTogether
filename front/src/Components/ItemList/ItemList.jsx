@@ -1,6 +1,8 @@
 
+import React from 'react'; 
 import Item from "../Item/Item"; 
 import Pagination from "../Pagination/Pagination";
+import ErrorMessage from '../Message/ErrorMessage/ErrorMessage';
 import './ItemList.scss'; 
 
 function ItemList({
@@ -10,10 +12,15 @@ function ItemList({
     currentPage, 
     setCurrentPage, 
 }){
-    console.log('ici', location); 
+ 
     
-    return(
-        <>
+    return(    
+      <> 
+        { datasList.length === 0 ? 
+        <ErrorMessage 
+            text = "La recherche n'a rien donnée"
+        /> : 
+        
         <div className='itemList'>
             {
                 location === '/users' ? 
@@ -54,6 +61,7 @@ function ItemList({
             }
         </div>
         
+        }
         {
             totalPage >1 && 
             <Pagination 
@@ -62,13 +70,11 @@ function ItemList({
                 setCurrentPage = { setCurrentPage }
             />
         }
-       
-        
-        </>
-    
+   
+    </> 
     )
 }
 
-export default ItemList; 
+export default React.memo(ItemList); 
 
 // TODO image props

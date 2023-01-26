@@ -3,15 +3,15 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup'; 
 import { Controller } from 'react-hook-form'; 
 import Select from 'react-select'; 
-import colorStyles from './colorStyles'; 
+import colorStyles from '../../utils/colorStyles'; 
 import { Link, useNavigate } from 'react-router-dom';
 import { getActionSetValue } from '../../actions/actions'; 
-import { secondPartFormSchema } from "../../Validations/formSchema";
+import { secondPartFormSchema } from "../../utils/formSchema";
 import Field from '../Field/Field';
 import Textarea from '../Field/Textarea'; 
 import Button from '../Button/Button';
-import ErrorMessage from '../ErrorMessage/ErrorMessage';
-import Modal from '../Modal/Modal';
+import ErrorFormMessage from '../Message/ErrorFormMessage/ErrorFormMessage';
+import Modal from '../Message/Modal/Modal';
 import { FormContext } from "../../Context/FormContext"; 
 import { TechnologiesByCategoryContext } from '../../Context/TechnologiesByCategoryContext';
 import { signupRequest } from '../../requests/userRequests';
@@ -21,32 +21,32 @@ import './SecondPartForm.scss';
 function SecondPartForm({
     formType,
 }) {
-    const { formState, formDispatch } = useContext(FormContext); 
+    const { formUserState, formUserDispatch } = useContext(FormContext); 
     const { groupedOptions, specialities } = useContext(TechnologiesByCategoryContext); 
     const [ isSuccess, setSuccess ] = useState(false); 
+    
     const { register, handleSubmit, control, formState : { errors }} = useForm({
         mode : 'all', 
         criteriaMode: "all", 
         resolver : yupResolver( secondPartFormSchema,  { abortEarly: false}),
         defaultValues : {
-            description : formState.description,
-            speciality : formState.speciality, 
-            privacy_policy : formState.privacy_policy, 
-            general_conditions : formState.general_conditions,
-            technologies : formState.technologies
+            description : formUserState.description,
+            speciality : formUserState.speciality, 
+            privacy_policy : formUserState.privacy_policy, 
+            general_conditions : formUserState.general_conditions,
+            technologies : formUserState.technologies
         }
     }); 
 
     const navigate = useNavigate(); 
 
     const handleClick = (data) => {
-        console.log(data)
         for(let item in data){ 
             if(item === 'technologies'){
                 const technologies = data.technologies.map(item => Number(item.value)); 
-                formDispatch(getActionSetValue(item, technologies)); 
+                formUserDispatch(getActionSetValue(item, technologies)); 
             }
-            formDispatch(getActionSetValue(item, data[item])); 
+            formUserDispatch(getActionSetValue(item, data[item])); 
         }
         navigate('/signup')
         
@@ -57,18 +57,18 @@ function SecondPartForm({
             for(let item in data){ 
                 if(item === 'technologies'){
                     const technologies = data.technologies.map(item => Number(item.value)); 
-                    formDispatch(getActionSetValue(item, technologies)); 
+                    formUserDispatch(getActionSetValue(item, technologies)); 
                 }
-                formDispatch(getActionSetValue(item, data[item])); 
+                formUserDispatch(getActionSetValue(item, data[item])); 
             }
 
             if(formType === 'signup'){
                 await signupRequest(
-                    formState.firstname,
-                    formState.lastname, 
-                    formState.email,
-                    formState.password, 
-                    formState.confirmPassword, 
+                    formUserState.firstname,
+                    formUserState.lastname, 
+                    formUserState.email,
+                    formUserState.password, 
+                    formUserState.confirmPassword, 
                     data.description, 
                     data.speciality.value, 
                     data.technologies.map(item => Number(item.value)),
@@ -104,10 +104,10 @@ function SecondPartForm({
                 <label>Spécialité</label>
 
                 {
-                    errors?.technologies &&  
-                    < ErrorMessage 
+                    errors?.speciality &&  
+                    < ErrorFormMessage 
                         name = 'speciality'
-                        error = { errors?.speciality?.name.message }
+                        error = { errors?.speciality?.name?.message }
                     />
                 }
 
@@ -116,11 +116,11 @@ function SecondPartForm({
                     control={ control }
                     render={({ field }) => 
                     <Select 
-                        {...field} 
-                        placeholder="Vos technologies"
+                        {...field } 
+                        placeholder="Votre spécialité"
                         options={ specialities }
                         styles = { colorStyles } 
-                        defaultValue = { formState.speciality }
+                        defaultValue = { formUserState.speciality }
                     />}
                 />
 
@@ -140,9 +140,9 @@ function SecondPartForm({
                 
                 {
                     errors?.technologies &&  
-                    < ErrorMessage 
+                    < ErrorFormMessage 
                         name = 'technologies'
-                        error = { errors.technologies?.message }
+                        error = { errors?.technologies?.message }
                     />
                 }
 
@@ -156,7 +156,7 @@ function SecondPartForm({
                         options={ groupedOptions }
                         styles = { colorStyles } 
                         isMulti
-                        defaultValue = { formState.technologies }
+                        defaultValue = { formUserState.technologies }
                     />}
                 />
             </div>

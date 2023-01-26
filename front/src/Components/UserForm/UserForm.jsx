@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Video from "../Video/Video";
 import FirstPartForm from './FirstPartForm';
-import SecondPartForm from "../SignupForm/SecondPartForm";
+import SecondPartForm from "./SecondPartForm";
 
-import './SignupForm.scss';
+import './UserForm.scss';
 
-function SignupForm({
+function UserForm({
     page
 }) {
 
@@ -41,4 +41,4 @@ function SignupForm({
     )
 }
 
-export default React.memo(SignupForm); 
+export default React.memo(UserForm); 

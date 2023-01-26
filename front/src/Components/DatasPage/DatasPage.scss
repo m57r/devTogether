@@ -1,34 +1,33 @@
 @use 'src/styles/vars'; 
 
-.usersPage{
+.datasPage{
     background-image : url('../../../public/image/background.png');
     background-size: cover;
     background-repeat: no-repeat;
     padding-bottom: 2rem;
+    min-height: 100vh;
+
+    .ui.form {
+        width: 80%; 
+        margin: 0 auto; 
+    }
 
     .filterTags{
         display: none; 
     }
 
-    .button{
-        width: fit-content;
-        padding: vars.$gutter*0.5 vars.$gutter*3;  
+    &_button{
+        display: flex; 
         margin : vars.$gutter*2 auto vars.$gutter auto; 
+        justify-content: center;
     }
 }
 
-@media screen and (min-width: 850px) {
-    .usersPage{
-        .filterTags{
-            display: flex; 
-        }
-
-        &_button, .overlay-filterMenu{
-            display: none; 
-        }
-
-        .overlay-menuBurger{
-            display: none; 
+@media screen and (min-width: 1360px) {
+    .datasPage{
+        .ui.form {
+            width: 70%; 
+            margin: 0 auto; 
         }
     }
 }

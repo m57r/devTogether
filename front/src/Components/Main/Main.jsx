@@ -5,7 +5,7 @@ import MenuBurger from '../MenuBurger/MenuBurger';
 import Button from '../Button/Button'; 
 import user from './user.png'; 
 import project from './project.png'; 
-import Modal from '../Modal/Modal';
+import Modal from '../Message/Modal/Modal';
 import './Main.scss';
 
 function Main() {

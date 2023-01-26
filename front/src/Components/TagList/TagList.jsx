@@ -7,15 +7,14 @@ import './TagList.scss';
 function TagList({
     tagList
 }){
-
     return(
-                tagList.map(({id, name, color}) => (
-                    <Tag
-                        key = { id }
-                        name = { name }
-                        color = { color }
-                    />
-                ))
+        tagList.map(({id, name, color}) => (
+            <Tag
+                key = { id }
+                name = { name }
+                color = { color }
+            />
+        ))
     )
 }
 

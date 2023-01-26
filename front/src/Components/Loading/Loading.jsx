@@ -1,3 +1,4 @@
+import React from 'react'; 
 import './Loading.scss'; 
 
 function Loading(){
@@ -49,4 +50,4 @@ function Loading(){
     )
 }
 
-export default Loading; 
+export default React.memo(Loading); 

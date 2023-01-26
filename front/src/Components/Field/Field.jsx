@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import React from 'react';
+import ErrorFormMessage from '../Message/ErrorFormMessage/ErrorFormMessage';
 
 import './Field.scss'; 
 
@@ -17,22 +17,22 @@ function Field({
             
             {   
                 error && type === 'checkbox' &&
-                < ErrorMessage 
+                < ErrorFormMessage 
                     name = { name } 
                     error = { error }
                 />
-
             }
             
             <label>{text}</label>
+            
             {
                 error && type !== 'checkbox' &&
-                < ErrorMessage 
+                < ErrorFormMessage 
                     name = { name } 
                     error = { error }
                 />
-
             }
+
         </div>   
 
             {

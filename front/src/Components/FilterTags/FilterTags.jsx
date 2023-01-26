@@ -1,5 +1,4 @@
 import React from 'react';
-
 import TagList from "../TagList/TagList";
 import Button from "../Button/Button"; 
 
@@ -14,11 +13,10 @@ function FilterTags({
             <div className='TagList'>
                 {
                     tagList.map(({id, technologies }) => (
-                    
-                            <TagList
-                                key={id}
-                                tagList={ technologies }
-                            />
+                        <TagList
+                            key={id}
+                            tagList={ technologies }
+                        />
                     ))
                 }
             </div>
@@ -31,4 +29,4 @@ function FilterTags({
     )
 }
 
-export default FilterTags; 
+export default React.memo(FilterTags); 

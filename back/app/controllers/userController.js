@@ -2,7 +2,6 @@ const { Project, User, Technology, Language } = require('../models');
 const { escape } = require('sanitizer');
 const { Op } = require('sequelize');
 
-
 const userController = {
 	/** @function 
    * Retrieve all users with technologies, languages and followers
@@ -15,7 +14,7 @@ const userController = {
 		try {
 			let { pageNumber, technologies, searchText } = req.query; 
 			const limit = 6; 	
-
+ 
 			if(isNaN(Number(pageNumber))|| Number(pageNumber) <0 ){
 				const error = new Error('This page doesn\'t exist');
 				return  res.status(404).json({message : error.message}); 
@@ -36,7 +35,10 @@ const userController = {
 
 			if(searchText && searchText.trim() !== ' '){
 				paramsQuery.where = {
-					lastname : { [Op.like]: `${searchText}%` }
+					[Op.or] : [ 
+						{ lastname : { [Op.like]: `${searchText}%` }},
+						{ firstname : { [Op.like]: `${searchText}%` }}
+					]
 				};
 			} 
 
@@ -73,11 +75,10 @@ const userController = {
 
 			const totalUserCount = await User.count(); 
 			
-
 			res.status(200).json({
 				content : userList.rows, 
 				totalPages : Math.ceil(totalUserCount/limit),
-				
+				test : userList.rows.length
 			}); 
 
 		} catch (error) {

@@ -11,7 +11,6 @@ function FilterMenu({
     const [ isFavoritesChecked, setIsFavoritesChecked ] = useState(false)
     const location = useLocation(); 
 
-
     return(
         <div className = 'overlay-filterMenu'>
             <div className= 'filterMenu'>

@@ -12,4 +12,4 @@ function UsersPage(){
     )
 }
 
-export default UsersPage; 
+export default React.memo(UsersPage); 

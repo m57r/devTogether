@@ -1,5 +1,5 @@
 import React from 'react';
-import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import ErrorFormMessage from '../Message/ErrorFormMessage/ErrorFormMessage';
 
 function Textarea({
     isRequired,
@@ -10,19 +10,19 @@ function Textarea({
     error
 }){
     
-
     return(
        
             <div className={`${isRequired  ? 'required field' : ''} ${error && 'error'}`}>
                 <label>{ `${name[0].toUpperCase()}${name.slice(1)}` }</label> 
+                
                 {
-                error &&  
-                < ErrorMessage 
-                    name = { name } 
-                    error = { error }
-                />
+                    error &&  
+                    < ErrorFormMessage 
+                        name = { name } 
+                        error = { error }
+                    />
+                }
 
-            }
                 <textarea
                     rows = { rows } 
                     placeholder={ text } 
