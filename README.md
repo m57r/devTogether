@@ -14,4 +14,4 @@ Javascript, NodeJs, Express, PostgreSQL, Sequelize, React, React Hook Form, Cont
 
 
 
-vidéo libre de droit - pexels (Diva Plavalaguna). 
+*vidéo libre de droit - pexels (Diva Plavalaguna).* 
